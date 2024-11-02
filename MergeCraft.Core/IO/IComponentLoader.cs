@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using MergeCraft.Core.Craft.Interfaces;
+using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {

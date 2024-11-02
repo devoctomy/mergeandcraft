@@ -1,4 +1,4 @@
-﻿namespace MergeCraft.Core.Craft.Interfaces
+﻿namespace MergeCraft.Core.Merge.Interfaces
 {
     public interface IMergeRequirement
     {

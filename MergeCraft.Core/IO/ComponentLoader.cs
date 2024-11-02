@@ -1,9 +1,9 @@
-﻿using MergeCraft.Core.Craft;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
-using MergeCraft.Core.Craft.Interfaces;
+using MergeCraft.Core.Merge;
+using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {

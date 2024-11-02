@@ -1,5 +1,5 @@
-﻿using MergeCraft.Core.Craft;
-using MergeCraft.Core.Craft.Base;
+﻿using MergeCraft.Core.Merge;
+using MergeCraft.Core.Merge.Interfaces;
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading;

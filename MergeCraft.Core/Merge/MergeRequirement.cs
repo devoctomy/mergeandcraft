@@ -1,6 +1,6 @@
-﻿using MergeCraft.Core.Craft.Interfaces;
+﻿using MergeCraft.Core.Merge.Interfaces;
 
-namespace MergeCraft.Core.Craft
+namespace MergeCraft.Core.Merge
 {
     public class MergeRequirement : IMergeRequirement
     {

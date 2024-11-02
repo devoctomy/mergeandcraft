@@ -1,6 +1,8 @@
-﻿namespace MergeCraft.Core.Craft.Base
+﻿using MergeCraft.Core.Merge.Interfaces;
+
+namespace MergeCraft.Core.Merge
 {
-    public interface IScrap
+    public class Scrap : IScrap
     {
         public string? Id { get; set; }
         public string? Name { get; set; }

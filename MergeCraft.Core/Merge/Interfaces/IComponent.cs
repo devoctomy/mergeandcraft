@@ -1,8 +1,8 @@
-﻿using MergeCraft.Core.Craft.Interfaces;
+﻿using MergeCraft.Core.Merge;
 
-namespace MergeCraft.Core.Craft
+namespace MergeCraft.Core.Merge.Interfaces
 {
-    public class Component : IComponent
+    public interface IComponent
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
