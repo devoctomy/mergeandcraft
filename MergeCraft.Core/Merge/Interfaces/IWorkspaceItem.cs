@@ -1,8 +1,10 @@
-﻿using MergeCraft.Core.Merge.Interfaces;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 
-namespace MergeCraft.Core.Merge
+namespace MergeCraft.Core.Merge.Interfaces
 {
-    public class Scrap : IWorkspaceItem, IScrap
+    public interface IWorkspaceItem
     {
         public string? Id { get; set; }
         public string? Name { get; set; }

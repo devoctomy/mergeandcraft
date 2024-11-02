@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MergeCraft.Core.IO
 {
-    public class ScrapLoader : IScrapLoader
+    public class ScrapLoader : IScrapLoader<Scrap>
     {
         private const string IdPrefix = "SCRAP";
         private string _dataPath;
@@ -17,7 +17,7 @@ namespace MergeCraft.Core.IO
             _dataPath = dataPath;
         }
 
-        public async Task<IEnumerable<IScrap>?> LoadAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Scrap>?> LoadAsync(CancellationToken cancellationToken)
         {
             var jsonRaw = await System.IO.File.ReadAllTextAsync(_dataPath, cancellationToken);
 

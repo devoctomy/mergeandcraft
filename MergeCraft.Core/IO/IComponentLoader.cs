@@ -5,8 +5,8 @@ using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {
-    public interface IComponentLoader
+    public interface IComponentLoader<T> where T : IComponent, IWorkspaceItem
     {
-        Task<IEnumerable<IComponent>?> LoadAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<T>?> LoadAsync(CancellationToken cancellationToken);
     }
 }

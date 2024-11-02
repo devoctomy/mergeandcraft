@@ -3,11 +3,10 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
 using MergeCraft.Core.Merge;
-using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {
-    public class ComponentLoader : IComponentLoader
+    public class ComponentLoader : IComponentLoader<Component>
     {
         private const string IdPrefix = "component";
         private string _dataPath;
@@ -17,7 +16,7 @@ namespace MergeCraft.Core.IO
             _dataPath = dataPath;
         }
 
-        public async Task<IEnumerable<IComponent>?> LoadAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Component>?> LoadAsync(CancellationToken cancellationToken)
         {
             var jsonRaw = await System.IO.File.ReadAllTextAsync(_dataPath, cancellationToken);
 

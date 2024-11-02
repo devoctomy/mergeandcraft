@@ -5,8 +5,8 @@ using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {
-    public interface IScrapLoader
+    public interface IScrapLoader<T> where T : IScrap, IWorkspaceItem
     {
-        Task<IEnumerable<IScrap>?> LoadAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<T>?> LoadAsync(CancellationToken cancellationToken);
     }
 }

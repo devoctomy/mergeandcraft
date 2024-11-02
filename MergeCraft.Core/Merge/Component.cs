@@ -2,7 +2,7 @@
 
 namespace MergeCraft.Core.Merge
 {
-    public class Component : IComponent
+    public class Component : IWorkspaceItem, IComponent
     {
         public string? Id { get; set; }
         public string? Name { get; set; }
