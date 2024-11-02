@@ -2,8 +2,8 @@
 
 namespace MergeCraft.Core.Merge.Interfaces
 {
-    public interface IComponent
+    public interface IComponent<T> where T : class, IComponent<T>
     {
-        public MergeRequirement? MergeRequirement { get; set; }
+        public T? Product { get; set; }
     }
 }

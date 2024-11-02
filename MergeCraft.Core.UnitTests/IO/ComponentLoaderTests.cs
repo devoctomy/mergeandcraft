@@ -5,30 +5,31 @@ namespace MergeCraft.Core.UnitTests.IO
     public class ComponentLoaderTests
     {
         [Theory]
-        [InlineData("Data/MetalComponents.json",
-            new[]
-            {
-                "component.metal.wire:scrap.metal",
-                "component.metal.spring:component.metal.wire"
-            })]
+        [InlineData("Data/MetalComponents.json", new string[]
+        {
+            "component.metal.wire",
+            "component.metal.spring"
+        })]
         public async Task GivenFileName_WhenLoadAsync_ThenComponentsAreReturned(
             string path,
-            string[] expectedComponents)
+            string[] idChain)
         {
             // Arrange
-            var componentLoader = new ComponentLoader(path);
+            var componentLoader = new ComponentBomLoader(path);
 
             // Act
-            var components = (await componentLoader.LoadAsync(CancellationToken.None))?.ToList();
+            var componentBom = (await componentLoader.LoadAsync(CancellationToken.None));
 
             // Assert
-            Assert.NotNull(components);
-            foreach(var expectedComponent in expectedComponents)
+            Assert.NotNull(componentBom);
+            Assert.NotNull(componentBom.Product);
+
+            var currentComponent = componentBom.Product;
+            foreach (var expectedId in idChain)
             {
-                var expectedComponentParts = expectedComponent.Split(':');
-                Assert.Contains(components, x =>
-                    x.Id!.Equals(expectedComponentParts[0], StringComparison.InvariantCultureIgnoreCase) &&
-                    x.MergeRequirement!.SourceId == expectedComponentParts[1]);
+                Assert.NotNull(currentComponent);
+                Assert.Equal(expectedId, currentComponent.Id);
+                currentComponent = currentComponent.Product;
             }
         }
     }

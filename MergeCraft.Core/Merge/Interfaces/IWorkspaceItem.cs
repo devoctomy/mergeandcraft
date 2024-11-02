@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MergeCraft.Core.Merge.Interfaces
+﻿namespace MergeCraft.Core.Merge.Interfaces
 {
     public interface IWorkspaceItem
     {

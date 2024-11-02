@@ -3,20 +3,20 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
 using MergeCraft.Core.Merge;
+using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.IO
 {
-    public class ComponentLoader : IComponentLoader<Component>
+    public class ComponentBomLoader : IComponentBomLoader<Component>
     {
-        private const string IdPrefix = "component";
         private string _dataPath;
 
-        public ComponentLoader(string dataPath)
+        public ComponentBomLoader(string dataPath)
         {
             _dataPath = dataPath;
         }
 
-        public async Task<IEnumerable<Component>?> LoadAsync(CancellationToken cancellationToken)
+        public async Task<IComponentBom<Component>?> LoadAsync(CancellationToken cancellationToken)
         {
             var jsonRaw = await System.IO.File.ReadAllTextAsync(_dataPath, cancellationToken);
 
@@ -24,10 +24,8 @@ namespace MergeCraft.Core.IO
             {
                 PropertyNameCaseInsensitive = true
             };
-            var components = JsonSerializer.Deserialize<List<Component>>(jsonRaw, options);
-            components?.ForEach(x => x.Id = $"{IdPrefix}.{x.Id}");
-
-            return components;
+            var bom = JsonSerializer.Deserialize<ComponentBom>(jsonRaw, options);
+            return bom;
         }
     }
 }
