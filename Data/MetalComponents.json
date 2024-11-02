@@ -1,0 +1,18 @@
+[
+    {
+        "id" : "metal.wire",
+        "name" : "Wire",
+        "description" : "Thin, small lengths of metal wire.",
+        "mergeRequirement" : {
+            "sourceId" : "scrap.metal"
+        }
+    },
+    {
+        "id" : "metal.spring",
+        "name" : "Spring",
+        "description" : "Small metal spring.",
+        "mergeRequirement" : {
+            "sourceId" : "component.metal.wire"
+        }
+    }
+]

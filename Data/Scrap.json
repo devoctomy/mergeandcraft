@@ -1,0 +1,22 @@
+﻿[
+  {
+    "id": "wood",
+    "name": "Wood Scrap",
+    "description": "Scrap wood, used for merging into level 1 wooden components."
+  },
+  {
+    "id": "metal",
+    "name": "Metal Scrap",
+    "description": "Scrap metal, used for merging into level 1 metal components."
+  },
+  {
+    "id": "electronics",
+    "name": "Electronics Scrap",
+    "description": "Scrap electronics, used for merging level 1 into electronics components."
+  },
+  {
+    "id": "glass",
+    "name": "Glass Scrap",
+    "description": "Scrap glass, used for merging into level 1 glass components."
+  }
+]
