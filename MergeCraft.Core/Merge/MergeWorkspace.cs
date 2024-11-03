@@ -1,17 +1,18 @@
 ﻿using MergeCraft.Core.Collections.ReadOnly;
 using MergeCraft.Core.Data;
+using MergeCraft.Core.Merge.Base;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
 {
-    public class MergeWorkspace : IMergeWorkspace<WorkspaceItem>
+    public class MergeWorkspace : IMergeWorkspace<WorkspaceItemBase>
     {
         private readonly IWorkspaceMergerService<Component> _workspaceMergerService;
-        private WorkspaceItem?[,] _workspace;
+        private WorkspaceItemBase?[,] _workspace;
 
         public int Width { get; }
         public int Height { get; }
-        public ReadOnly2DArray<WorkspaceItem?> Workspace { get; }
+        public ReadOnly2DArray<WorkspaceItemBase?> Workspace { get; }
 
         public MergeWorkspace(
             int width,
@@ -21,12 +22,12 @@ namespace MergeCraft.Core.Merge
             Width = width;
             Height = height;
             _workspaceMergerService = workspaceMergerService;
-            _workspace = new WorkspaceItem?[Width, Height];
-            Workspace = new ReadOnly2DArray<WorkspaceItem?>(_workspace);
+            _workspace = new WorkspaceItemBase?[Width, Height];
+            Workspace = new ReadOnly2DArray<WorkspaceItemBase?>(_workspace);
         }
 
         public bool Put(
-            WorkspaceItem workspaceItem,
+            WorkspaceItemBase workspaceItem,
             Location location)
         {
             if (Workspace[location.X, location.Y] != null)
@@ -52,10 +53,20 @@ namespace MergeCraft.Core.Merge
             {
                 var destination = Workspace[to.X, to.Y];
 
+                if(!(source is WorkspaceComponentItem<Component>) &&
+                    !(destination is WorkspaceComponentItem<Component>))
+                {
+                    // Can only merge workspace component items
+                    return false;
+                }
+
+                var sourceComponentItem = source as WorkspaceComponentItem<Component>;
+                var destinationComponentItem = destination as WorkspaceComponentItem<Component>;
+
                 _workspaceMergerService.Merge(
-                    source,
-                    destination!,
-                    source.Component!.Bom!);
+                    sourceComponentItem!,
+                    destinationComponentItem!,
+                    sourceComponentItem!.Component!.Bom!);
             }
 
             _workspace[to.X, to.Y] = source;

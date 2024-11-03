@@ -1,13 +1,14 @@
-﻿using MergeCraft.Core.Merge.Interfaces;
+﻿using MergeCraft.Core.Merge.Base;
+using MergeCraft.Core.Merge.Interfaces;
 using System;
 
 namespace MergeCraft.Core.Merge
 {
     public class WorkspaceMergerService : IWorkspaceMergerService<Component>
     {
-        public IWorkspaceItem<Component> Merge(
-            IWorkspaceItem<Component> source,
-            IWorkspaceItem<Component> target,
+        public WorkspaceComponentItem<Component>? Merge(
+            WorkspaceComponentItem<Component> source,
+            WorkspaceComponentItem<Component> target,
             IComponentBom<Component> bom)
         {
             if(source.Id != target.Id)
@@ -17,7 +18,7 @@ namespace MergeCraft.Core.Merge
 
             if (source.Component.CanBeMerged)
             {
-                return new WorkspaceItem(
+                return new WorkspaceComponentItem<Component>(
                     Guid.NewGuid().ToString(),
                     source.Component.Product!);
             }
