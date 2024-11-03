@@ -62,10 +62,11 @@ namespace MergeCraft.Core.Merge
                 var sourceComponentItem = source as IWorkspaceMergeable<Component>;
                 var destinationComponentItem = destination as IWorkspaceMergeable<Component>;
 
-                _workspaceMergerService.Merge(
+                var merged = _workspaceMergerService.Merge(
                     sourceComponentItem!,
-                    destinationComponentItem!,
-                    sourceComponentItem!.Component!.Bom!);
+                    destinationComponentItem!);
+                _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
+                return true;
             }
 
             _workspace[to.X, to.Y] = source;

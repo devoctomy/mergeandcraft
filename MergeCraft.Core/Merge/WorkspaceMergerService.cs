@@ -7,8 +7,7 @@ namespace MergeCraft.Core.Merge
     {
         public IWorkspaceMergeable<Component>? Merge(
             IWorkspaceMergeable<Component> source,
-            IWorkspaceMergeable<Component> target,
-            IComponentBom<Component> bom)
+            IWorkspaceMergeable<Component> target)
         {
             if(source.Component.Id != target.Component.Id)
             {

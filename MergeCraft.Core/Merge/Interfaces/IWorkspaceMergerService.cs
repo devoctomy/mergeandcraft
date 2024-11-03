@@ -4,7 +4,6 @@
     {
         public IWorkspaceMergeable<T>? Merge(
             IWorkspaceMergeable<T> source,
-            IWorkspaceMergeable<T> target,
-            IComponentBom<T> bom);
+            IWorkspaceMergeable<T> target);
     }
 }
