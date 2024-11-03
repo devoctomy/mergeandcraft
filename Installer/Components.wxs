@@ -1,0 +1,19 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+		<Component Id="MergeAndCraftBinaries" Guid="DE8A0464-5E9B-4FF8-81B7-76D8FA30CEA7">
+			<File Id="MergeAndCraft" Source="..\MergeAndCraft\bin\Release\net8.0-windows\MergeAndCraft.exe" KeyPath="yes" />
+			<File Source="..\MergeAndCraft\bin\Release\net8.0-windows\MergeAndCraft.dll" />
+		</Component>
+
+		<Component Id="MergeAndCraftDesktopShortcut" Guid="8ED4EC64-B224-410A-B17E-626412DB304B" Directory="DesktopFolder">
+			<Shortcut Id="MergeAndCraftShortcut" Name="MergeAndCraft" Target="[INSTALLFOLDER]MergeAndCraft.exe" Icon="MergeAndCraftIcon" WorkingDirectory="INSTALLFOLDER" />
+			<RegistryValue Root="HKCU" Key="Software\!(bind.Property.Manufacturer)\!(bind.Property.ProductName)" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+		</Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <Icon Id="MergeAndCraftIcon" SourceFile="..\MergeAndCraft\Resources\Hand-01-48White.ico" />
+  </Fragment>
+</Wix>
