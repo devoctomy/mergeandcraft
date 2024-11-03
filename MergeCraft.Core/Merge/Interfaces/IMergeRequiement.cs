@@ -2,6 +2,6 @@
 {
     public interface IMergeRequirement
     {
-        string SourceId { get; set; }
+        string? SourceId { get; set; }
     }
 }

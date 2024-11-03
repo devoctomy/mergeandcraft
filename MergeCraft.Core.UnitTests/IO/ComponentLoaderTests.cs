@@ -7,6 +7,7 @@ namespace MergeCraft.Core.UnitTests.IO
         [Theory]
         [InlineData("Data/MetalComponents.json", new string[]
         {
+            "scrap.metal",
             "component.metal.wire",
             "component.metal.spring"
         })]
@@ -22,9 +23,9 @@ namespace MergeCraft.Core.UnitTests.IO
 
             // Assert
             Assert.NotNull(componentBom);
-            Assert.NotNull(componentBom.Product);
+            Assert.NotNull(componentBom.MergeTree);
 
-            var currentComponent = componentBom.Product;
+            var currentComponent = componentBom.MergeTree;
             foreach (var expectedId in idChain)
             {
                 Assert.NotNull(currentComponent);

@@ -1,14 +1,18 @@
 {
-  "scrapId": "scrap.metal",
-  "product": {
-    "id": "component.metal.wire",
-    "name": "Wire",
-    "description": "Thin, small lengths of metal wire.",
+  "MergeTree": {
+    "id": "scrap.metal",
+    "name": "Scrap Metal",
+    "description": "Small piece of scrap metal.",
     "product": {
-      "id": "component.metal.spring",
-      "name": "Spring",
-      "description": "Small metal spring.",
-      "product": null
+      "id": "component.metal.wire",
+      "name": "Wire",
+      "description": "Thin, small lengths of metal wire.",
+      "product": {
+        "id": "component.metal.spring",
+        "name": "Spring",
+        "description": "Small metal spring.",
+        "product": null
+      }
     }
   }
 }

@@ -4,7 +4,6 @@ namespace MergeCraft.Core.Merge
 {
     public class ComponentBom : IComponentBom<Component>
     {
-        public string? ScrapId { get; set; }
-        public Component? Product { get; set; }
+        public Component? MergeTree { get; set; }
     }
 }

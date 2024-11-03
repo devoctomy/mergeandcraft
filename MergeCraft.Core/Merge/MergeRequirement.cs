@@ -4,6 +4,6 @@ namespace MergeCraft.Core.Merge
 {
     public class MergeRequirement : IMergeRequirement
     {
-        public string SourceId { get; set; }
+        public string? SourceId { get; set; }
     }
 }

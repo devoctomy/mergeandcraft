@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\Test Data Goes Here.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="..\Data\Scrap.json" Link="Data\Scrap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
