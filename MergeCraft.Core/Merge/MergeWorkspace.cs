@@ -63,7 +63,7 @@ namespace MergeCraft.Core.Merge
             {
                 var destination = Workspace[to.X, to.Y];
 
-                if(!(source is IWorkspaceMergeable<Component>) &&
+                if(!(source is IWorkspaceMergeable<Component>) ||
                     !(destination is IWorkspaceMergeable<Component>))
                 {
                     // Can only merge workspace component items
@@ -76,6 +76,11 @@ namespace MergeCraft.Core.Merge
                 var merged = _workspaceMergerService.Merge(
                     sourceComponentItem!,
                     destinationComponentItem!);
+                if (merged == null)
+                {
+                    return false;
+                }
+
                 _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
                 return true;
             }

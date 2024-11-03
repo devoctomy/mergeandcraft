@@ -9,19 +9,15 @@ namespace MergeCraft.Core.Merge
             IWorkspaceMergeable<Component> source,
             IWorkspaceMergeable<Component> target)
         {
-            if(source.Component.Id != target.Component.Id)
+            if(source.Component.Id != target.Component.Id ||
+                !source.Component.CanBeMerged)
             {
-                throw new ArgumentException("Source and target component Ids do not match, items cannot be merged.");
+                return null;
             }
 
-            if (source.Component.CanBeMerged)
-            {
-                return new WorkspaceComponentItem(
-                    Guid.NewGuid().ToString(),
-                    source.Component.Product!);
-            }
-
-            return null;
+            return new WorkspaceComponentItem(
+                Guid.NewGuid().ToString(),
+                source.Component.Product!);
         }
     }
 }
