@@ -1,18 +1,17 @@
 ﻿using MergeCraft.Core.Collections.ReadOnly;
 using MergeCraft.Core.Data;
-using MergeCraft.Core.Merge.Base;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
 {
-    public class MergeWorkspace : IMergeWorkspace<WorkspaceItemBase>
+    public class MergeWorkspace : IMergeWorkspace<IWorkspacePlaceable>
     {
         private readonly IWorkspaceMergerService<Component> _workspaceMergerService;
-        private WorkspaceItemBase?[,] _workspace;
+        private IWorkspacePlaceable?[,] _workspace;
 
         public int Width { get; }
         public int Height { get; }
-        public ReadOnly2DArray<WorkspaceItemBase?> Workspace { get; }
+        public ReadOnly2DArray<IWorkspacePlaceable?> Workspace { get; }
 
         public MergeWorkspace(
             int width,
@@ -22,12 +21,12 @@ namespace MergeCraft.Core.Merge
             Width = width;
             Height = height;
             _workspaceMergerService = workspaceMergerService;
-            _workspace = new WorkspaceItemBase?[Width, Height];
-            Workspace = new ReadOnly2DArray<WorkspaceItemBase?>(_workspace);
+            _workspace = new IWorkspacePlaceable?[Width, Height];
+            Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
         }
 
         public bool Put(
-            WorkspaceItemBase workspaceItem,
+            IWorkspacePlaceable workspaceItem,
             Location location)
         {
             if (Workspace[location.X, location.Y] != null)
@@ -53,15 +52,15 @@ namespace MergeCraft.Core.Merge
             {
                 var destination = Workspace[to.X, to.Y];
 
-                if(!(source is WorkspaceComponentItem<Component>) &&
-                    !(destination is WorkspaceComponentItem<Component>))
+                if(!(source is IWorkspaceMergeable<Component>) &&
+                    !(destination is IWorkspaceMergeable<Component>))
                 {
                     // Can only merge workspace component items
                     return false;
                 }
 
-                var sourceComponentItem = source as WorkspaceComponentItem<Component>;
-                var destinationComponentItem = destination as WorkspaceComponentItem<Component>;
+                var sourceComponentItem = source as IWorkspaceMergeable<Component>;
+                var destinationComponentItem = destination as IWorkspaceMergeable<Component>;
 
                 _workspaceMergerService.Merge(
                     sourceComponentItem!,

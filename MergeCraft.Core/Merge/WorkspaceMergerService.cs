@@ -1,24 +1,23 @@
-﻿using MergeCraft.Core.Merge.Base;
-using MergeCraft.Core.Merge.Interfaces;
+﻿using MergeCraft.Core.Merge.Interfaces;
 using System;
 
 namespace MergeCraft.Core.Merge
 {
     public class WorkspaceMergerService : IWorkspaceMergerService<Component>
     {
-        public WorkspaceComponentItem<Component>? Merge(
-            WorkspaceComponentItem<Component> source,
-            WorkspaceComponentItem<Component> target,
+        public IWorkspaceMergeable<Component>? Merge(
+            IWorkspaceMergeable<Component> source,
+            IWorkspaceMergeable<Component> target,
             IComponentBom<Component> bom)
         {
-            if(source.Id != target.Id)
+            if(source.Component.Id != target.Component.Id)
             {
-                throw new ArgumentException("Source and target Ids do not match, items cannot be merged.");
+                throw new ArgumentException("Source and target component Ids do not match, items cannot be merged.");
             }
 
             if (source.Component.CanBeMerged)
             {
-                return new WorkspaceComponentItem<Component>(
+                return new WorkspaceComponentItem(
                     Guid.NewGuid().ToString(),
                     source.Component.Product!);
             }

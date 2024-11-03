@@ -1,12 +1,14 @@
-﻿using MergeCraft.Core.Merge.Base;
+﻿using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceGeneratorItem : WorkspaceItemBase
+    public class WorkspaceGeneratorItem : IWorkspacePlaceable, IWorkspaceGenerator
     {
+        public string Id { get; }
+
         public WorkspaceGeneratorItem(string id)
-            : base(id)
         {
+            Id = id;
         }
     }
 }

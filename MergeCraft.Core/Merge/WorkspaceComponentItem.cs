@@ -1,17 +1,17 @@
-﻿using MergeCraft.Core.Merge.Base;
-using MergeCraft.Core.Merge.Interfaces;
+﻿using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceComponentItem<T> : WorkspaceItemBase
+    public class WorkspaceComponentItem : IWorkspacePlaceable, IWorkspaceMergeable<Component>
     {
-        public T Component { get; set; }
+        public string Id { get; }
+        public Component Component { get; set; }
 
         public WorkspaceComponentItem(
             string id,
-            T component)
-            : base(id)
+            Component component)
         {
+            Id = id;
             Component = component;
         }
     }
