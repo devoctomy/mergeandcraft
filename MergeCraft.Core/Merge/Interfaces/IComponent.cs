@@ -8,5 +8,7 @@ namespace MergeCraft.Core.Merge.Interfaces
         public string? Name { get; set; }
         public string? Description { get; set; }
         public T? Product { get; set; }
+        public bool CanBeMerged { get; }
+        public IComponentBom<T>? Bom { get; set; }
     }
 }

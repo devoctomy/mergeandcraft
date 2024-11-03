@@ -30,6 +30,7 @@ namespace MergeCraft.Core.UnitTests.IO
             {
                 Assert.NotNull(currentComponent);
                 Assert.Equal(expectedId, currentComponent.Id);
+                Assert.Equal(componentBom, currentComponent.Bom);
                 currentComponent = currentComponent.Product;
             }
         }

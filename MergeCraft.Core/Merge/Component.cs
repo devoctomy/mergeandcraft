@@ -1,4 +1,5 @@
 ﻿using MergeCraft.Core.Merge.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace MergeCraft.Core.Merge
 {
@@ -8,5 +9,8 @@ namespace MergeCraft.Core.Merge
         public string? Name { get; set; }
         public string? Description { get; set; }
         public Component? Product { get; set; }
+        public bool CanBeMerged => (Product == null);
+        [JsonIgnore]
+        public IComponentBom<Component>? Bom { get; set; }
     }
 }

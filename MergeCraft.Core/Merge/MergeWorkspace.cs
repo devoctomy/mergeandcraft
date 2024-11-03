@@ -6,6 +6,7 @@ namespace MergeCraft.Core.Merge
 {
     public class MergeWorkspace : IMergeWorkspace<WorkspaceItem>
     {
+        private readonly IWorkspaceMergerService<Component> _workspaceMergerService;
         private WorkspaceItem?[,] _workspace;
 
         public int Width { get; }
@@ -14,10 +15,12 @@ namespace MergeCraft.Core.Merge
 
         public MergeWorkspace(
             int width,
-            int height)
+            int height,
+            IWorkspaceMergerService<Component> workspaceMergerService)
         {
             Width = width;
             Height = height;
+            _workspaceMergerService = workspaceMergerService;
             _workspace = new WorkspaceItem?[Width, Height];
             Workspace = new ReadOnly2DArray<WorkspaceItem?>(_workspace);
         }
@@ -45,10 +48,14 @@ namespace MergeCraft.Core.Merge
                 return false;
             }
 
-            if (Workspace[to.X, to.Y] == null)
+            if (Workspace[to.X, to.Y] != null)
             {
                 var destination = Workspace[to.X, to.Y];
-                // merge
+
+                _workspaceMergerService.Merge(
+                    source,
+                    destination!,
+                    source.Component!.Bom!);
             }
 
             _workspace[to.X, to.Y] = source;

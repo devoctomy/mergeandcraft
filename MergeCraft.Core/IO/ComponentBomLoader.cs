@@ -24,6 +24,16 @@ namespace MergeCraft.Core.IO
                 PropertyNameCaseInsensitive = true
             };
             var bom = JsonSerializer.Deserialize<ComponentBom>(jsonRaw, options);
+            if(bom != null)
+            {
+                var currentComponent = bom.MergeTree;
+                while (currentComponent != null)
+                {
+                    currentComponent.Bom = bom;
+                    currentComponent = currentComponent.Product;
+                }
+            }
+
             return bom;
         }
     }

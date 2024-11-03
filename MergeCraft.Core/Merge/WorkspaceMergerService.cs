@@ -10,7 +10,19 @@ namespace MergeCraft.Core.Merge
             IWorkspaceItem<Component> target,
             IComponentBom<Component> bom)
         {
-            throw new NotImplementedException();
+            if(source.Id != target.Id)
+            {
+                throw new ArgumentException("Source and target Ids do not match, items cannot be merged.");
+            }
+
+            if (source.Component.CanBeMerged)
+            {
+                return new WorkspaceItem(
+                    Guid.NewGuid().ToString(),
+                    source.Component.Product!);
+            }
+
+            return null;
         }
     }
 }
