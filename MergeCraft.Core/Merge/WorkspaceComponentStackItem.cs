@@ -1,4 +1,6 @@
-﻿namespace MergeCraft.Core.Merge.Base
+﻿using MergeCraft.Core.Merge.Base;
+
+namespace MergeCraft.Core.Merge
 {
     public class WorkspaceComponentStackItem<T> : WorkspaceItemBase
     {

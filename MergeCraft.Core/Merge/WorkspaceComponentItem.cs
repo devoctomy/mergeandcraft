@@ -1,4 +1,7 @@
-﻿namespace MergeCraft.Core.Merge.Base
+﻿using MergeCraft.Core.Merge.Base;
+using MergeCraft.Core.Merge.Interfaces;
+
+namespace MergeCraft.Core.Merge
 {
     public class WorkspaceComponentItem<T> : WorkspaceItemBase
     {
