@@ -38,6 +38,17 @@ namespace MergeCraft.Core.Merge
             return true;
         }
 
+        public IWorkspacePlaceable? Get(Location location)
+        {
+            if ((location.X < 0 || location.X >= Width) ||
+                (location.Y < 0 || location.Y >= Height))
+            {
+                throw new System.Exception("Location out of bounds"); // !!! Need proper exception type
+            }
+
+            return Workspace[location.X, location.Y];
+        }
+
         public bool Move(
             Location from,
             Location to)
