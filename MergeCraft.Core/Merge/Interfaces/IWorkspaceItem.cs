@@ -1,9 +1,8 @@
 ﻿namespace MergeCraft.Core.Merge.Interfaces
 {
-    public interface IWorkspaceItem
+    public interface IWorkspaceItem<T> where T : class, IComponent<T>
     {
         public string? Id { get; set; }
-        public string? Name { get; set; }
-        public string? Description { get; set; }
+        public T? Component { get; set; }
     }
 }

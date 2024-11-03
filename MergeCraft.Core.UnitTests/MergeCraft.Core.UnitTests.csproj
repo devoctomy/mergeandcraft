@@ -17,9 +17,6 @@
     <Content Include="..\Data\MetalComponents.json" Link="Data\MetalComponents.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Data\Scrap.json" Link="Data\Scrap.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

@@ -1,31 +1,29 @@
 ﻿using MergeCraft.Core.Collections.ReadOnly;
-using MergeCraft.Core.Craft.Interfaces;
 using MergeCraft.Core.Data;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
 {
-    public class MergeWorkspace : ICraftWorkspace<Component>
+    public class MergeWorkspace : IMergeWorkspace<WorkspaceItem>
     {
-        private Component?[,] _workspace;
+        private WorkspaceItem?[,] _workspace;
 
         public int Width { get; }
         public int Height { get; }
-        public ReadOnly2DArray<Component?> Workspace { get; }
+        public ReadOnly2DArray<WorkspaceItem?> Workspace { get; }
 
         public MergeWorkspace(
             int width,
-            int height,
-            IMergerService<Component> mergerService)
+            int height)
         {
             Width = width;
             Height = height;
-            _workspace = new Component?[Width, Height];
-            Workspace = new ReadOnly2DArray<Component?>(_workspace);
+            _workspace = new WorkspaceItem?[Width, Height];
+            Workspace = new ReadOnly2DArray<WorkspaceItem?>(_workspace);
         }
 
         public bool Put(
-            Component component,
+            WorkspaceItem workspaceItem,
             Location location)
         {
             if (Workspace[location.X, location.Y] != null)
@@ -33,7 +31,7 @@ namespace MergeCraft.Core.Merge
                 return false;
             }
 
-            _workspace[location.X, location.Y] = component;
+            _workspace[location.X, location.Y] = workspaceItem;
             return true;
         }
 
