@@ -33,6 +33,7 @@ namespace MergeCraft.Core.UnitTests.IO
                 Assert.NotNull(currentComponent);
                 Assert.Equal(expectedId, currentComponent.Id);
                 Assert.Equal(componentBom, currentComponent.Bom);
+                Assert.True(componentBom.Contains(expectedId));     // Search the entire bom
                 currentComponent = currentComponent.Product;
             }
         }

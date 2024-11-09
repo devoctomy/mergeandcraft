@@ -22,12 +22,11 @@ namespace MergeCraft.Core.IO
 
         public IComponentBom<Component>? GetBom(string key)
         {
-            if(_componentBoms.TryGetValue(key, out var bom))
-            {
-                return bom;
-            }
+            var bom = _componentBoms.ContainsKey(key) ?
+                _componentBoms[key] :
+                _componentBoms.Values.SingleOrDefault(x => x.Contains(key));
 
-            return null;
+            return bom;
         }
 
         public async Task LoadAsync(

@@ -4,5 +4,7 @@
     {
         public string? Id { get; set; }
         T? MergeTree { get; set; }
+        bool Contains(string key);
+        T? Get(string key);
     }
 }
