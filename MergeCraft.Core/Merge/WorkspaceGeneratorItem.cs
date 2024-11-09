@@ -1,6 +1,5 @@
 ﻿using MergeCraft.Core.IO;
 using MergeCraft.Core.Merge.Interfaces;
-using System.Xml;
 
 namespace MergeCraft.Core.Merge
 {
@@ -25,9 +24,16 @@ namespace MergeCraft.Core.Merge
         {
             if(Count > 0)
             {
+                var bom = _componentDirectory.GetBom(Id);
+                if(bom == null)
+                {
+                    throw new System.Exception($"Bom not found for component {Id}");
+                }
+
+                var component = bom.Get(Id)!;
                 var item = new WorkspaceComponentItem(
                     Id,
-                    new Component()); // !!! Get component reference to create
+                    component);
                 Count--;
                 return item;
             }
