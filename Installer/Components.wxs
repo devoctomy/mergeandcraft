@@ -4,6 +4,7 @@
 		<Component Id="MergeAndCraftBinaries" Guid="DE8A0464-5E9B-4FF8-81B7-76D8FA30CEA7">
 			<File Id="MergeAndCraft" Source="..\MergeAndCraft\bin\Release\net8.0-windows\MergeAndCraft.exe" KeyPath="yes" />
 			<File Source="..\MergeAndCraft\bin\Release\net8.0-windows\MergeAndCraft.dll" />
+			<File Source="..\MergeAndCraft\bin\Release\net8.0-windows\MergeCraft.Core.dll" />
 		</Component>
 
 		<Component Id="MergeAndCraftDesktopShortcut" Guid="8ED4EC64-B224-410A-B17E-626412DB304B" Directory="DesktopFolder">

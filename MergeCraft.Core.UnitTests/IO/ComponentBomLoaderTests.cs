@@ -16,10 +16,12 @@ namespace MergeCraft.Core.UnitTests.IO
             string[] idChain)
         {
             // Arrange
-            var componentLoader = new ComponentBomLoader(path);
+            var componentLoader = new ComponentBomLoader();
 
             // Act
-            var componentBom = (await componentLoader.LoadAsync(CancellationToken.None));
+            var componentBom = (await componentLoader.LoadAsync(
+                path,
+                CancellationToken.None));
 
             // Assert
             Assert.NotNull(componentBom);

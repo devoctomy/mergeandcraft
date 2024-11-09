@@ -8,16 +8,11 @@ namespace MergeCraft.Core.IO
 {
     public class ComponentBomLoader : IComponentBomLoader<Component>
     {
-        private string _dataPath;
-
-        public ComponentBomLoader(string dataPath)
+        public async Task<IComponentBom<Component>?> LoadAsync(
+            string path,
+            CancellationToken cancellationToken)
         {
-            _dataPath = dataPath;
-        }
-
-        public async Task<IComponentBom<Component>?> LoadAsync(CancellationToken cancellationToken)
-        {
-            var jsonRaw = await System.IO.File.ReadAllTextAsync(_dataPath, cancellationToken);
+            var jsonRaw = await System.IO.File.ReadAllTextAsync(path, cancellationToken);
 
             var options = new JsonSerializerOptions
             {

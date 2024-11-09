@@ -1,4 +1,5 @@
 {
+  "id": "bom.metal",
   "MergeTree": {
     "id": "scrap.metal",
     "name": "Scrap Metal",

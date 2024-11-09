@@ -7,7 +7,7 @@ namespace MergeCraft.Core.Merge
     public class MergeWorkspace : IMergeWorkspace<IWorkspacePlaceable>
     {
         private readonly IWorkspaceMergerService<Component> _workspaceMergerService;
-        private IWorkspacePlaceable?[,] _workspace;
+        private readonly IWorkspacePlaceable?[,] _workspace;
 
         public int Width { get; }
         public int Height { get; }

@@ -1,0 +1,8 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <EnableRDI>False</EnableRDI>
+    <IgnoredTests>
+      <AllTestsSelector />
+    </IgnoredTests>
+  </Settings>
+</ProjectConfiguration>

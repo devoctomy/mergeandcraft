@@ -6,6 +6,8 @@ namespace MergeCraft.Core.IO
 {
     public interface IComponentBomLoader<T> where T : class, IComponent<T>
     {
-        Task<IComponentBom<T>?> LoadAsync(CancellationToken cancellationToken);
+        Task<IComponentBom<T>?> LoadAsync(
+            string path,
+            CancellationToken cancellationToken);
     }
 }
