@@ -1,4 +1,5 @@
-﻿using MergeCraft.Core.IO;
+﻿using MergeCraft.Core.Exceptions;
+using MergeCraft.Core.IO;
 using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
 using Moq;
@@ -43,18 +44,20 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenId_AndCount_WhenGenerate_AndBomNotFound_ThenExceptionThrown()
         {
             // Arrange
+            var id = "component.metal.spring";
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var workspaceGeneratorItem = new WorkspaceGeneratorItem(
-                "component.metal.spring",
+                id,
                 1,
                 mockComponentDirectory.Object);
 
-            mockComponentDirectory.Setup(x => x.GetBom("component.metal.spring"))
+            mockComponentDirectory.Setup(x => x.GetBom(id))
                 .Returns(default(ComponentBom));
 
             // Act & Assert
-            var exception = Assert.Throws<Exception>(() => workspaceGeneratorItem.Generate());
-            Assert.Contains("Bom not found for component", exception.Message);
+            var exception = Assert.Throws<ComponentBomNotFoundException>(() => workspaceGeneratorItem.Generate());
+            Assert.Equal($"Bom not found for component '{id}'.", exception.Message);
+            Assert.Equal(id, exception.Id);
         }
     }
 }

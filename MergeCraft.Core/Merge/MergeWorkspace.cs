@@ -1,5 +1,6 @@
 ﻿using MergeCraft.Core.Collections.ReadOnly;
 using MergeCraft.Core.Data;
+using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
@@ -43,7 +44,7 @@ namespace MergeCraft.Core.Merge
             if ((location.X < 0 || location.X >= Width) ||
                 (location.Y < 0 || location.Y >= Height))
             {
-                throw new System.Exception("Location out of bounds"); // !!! Need proper exception type
+                throw new LocationOutOfBoundsException(location, Width, Height);
             }
 
             return Workspace[location.X, location.Y];

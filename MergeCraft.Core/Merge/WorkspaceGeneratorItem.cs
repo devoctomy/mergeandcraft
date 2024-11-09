@@ -1,4 +1,5 @@
-﻿using MergeCraft.Core.IO;
+﻿using MergeCraft.Core.Exceptions;
+using MergeCraft.Core.IO;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge
@@ -27,7 +28,7 @@ namespace MergeCraft.Core.Merge
                 var bom = _componentDirectory.GetBom(Id);
                 if(bom == null)
                 {
-                    throw new System.Exception($"Bom not found for component {Id}");
+                    throw new ComponentBomNotFoundException(Id);
                 }
 
                 var component = bom.Get(Id)!;
