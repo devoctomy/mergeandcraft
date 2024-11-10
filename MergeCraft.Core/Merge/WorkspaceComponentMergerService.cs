@@ -3,7 +3,7 @@ using System;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceMergerService : IWorkspaceMergerService<Component>
+    public class WorkspaceComponentMergerService : IWorkspaceComponentMergerService<Component>
     {
         public IWorkspaceMergeable<Component>? Merge(
             IWorkspaceMergeable<Component> source,

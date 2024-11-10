@@ -7,29 +7,39 @@ namespace MergeCraft.Core.Merge
 {
     public class MergeWorkspace : IMergeWorkspace<IWorkspacePlaceable>
     {
-        private readonly IWorkspaceMergerService<Component> _workspaceMergerService;
+        private readonly IWorkspaceComponentMergerService<Component> _workspaceComponentMergerService;
         private readonly IWorkspacePlaceable?[,] _workspace;
+        private bool _initialised = false;
 
-        public int Width { get; }
-        public int Height { get; }
+        public int Width { get; private set; } = 0;
+        public int Height { get; private set; } = 0;
         public ReadOnly2DArray<IWorkspacePlaceable?> Workspace { get; }
 
-        public MergeWorkspace(
+        public MergeWorkspace(IWorkspaceComponentMergerService<Component> workspaceComponentMergerService)
+        {
+            _workspaceComponentMergerService = workspaceComponentMergerService;
+            _workspace = new IWorkspacePlaceable?[Width, Height];
+            Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
+        }
+
+        public void Initialise(
             int width,
-            int height,
-            IWorkspaceMergerService<Component> workspaceMergerService)
+            int height)
         {
             Width = width;
             Height = height;
-            _workspaceMergerService = workspaceMergerService;
-            _workspace = new IWorkspacePlaceable?[Width, Height];
-            Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
+            _initialised = true;
         }
 
         public bool Put(
             IWorkspacePlaceable workspaceItem,
             Location location)
         {
+            if(!_initialised)
+            {
+                throw new MergeWorkspaceNotInitialisedException();
+            }
+
             if (Workspace[location.X, location.Y] != null)
             {
                 return false;
@@ -41,6 +51,11 @@ namespace MergeCraft.Core.Merge
 
         public IWorkspacePlaceable? Get(Location location)
         {
+            if (!_initialised)
+            {
+                throw new MergeWorkspaceNotInitialisedException();
+            }
+
             if ((location.X < 0 || location.X >= Width) ||
                 (location.Y < 0 || location.Y >= Height))
             {
@@ -54,6 +69,11 @@ namespace MergeCraft.Core.Merge
             Location from,
             Location to)
         {
+            if (!_initialised)
+            {
+                throw new MergeWorkspaceNotInitialisedException();
+            }
+
             var source = Workspace[from.X, from.Y];
             if (source == null)
             {
@@ -68,6 +88,8 @@ namespace MergeCraft.Core.Merge
                 return true;
             }
 
+            // !!! Need to do this more dynamically rather than assuming we want to merge components
+
             if (!(source is IWorkspaceMergeable<Component>) ||
                 !(destination is IWorkspaceMergeable<Component>))
             {
@@ -78,7 +100,7 @@ namespace MergeCraft.Core.Merge
             var sourceComponentItem = source as IWorkspaceMergeable<Component>;
             var destinationComponentItem = destination as IWorkspaceMergeable<Component>;
 
-            var merged = _workspaceMergerService.Merge(
+            var merged = _workspaceComponentMergerService.Merge(
                 sourceComponentItem!,
                 destinationComponentItem!);
             if (merged == null)

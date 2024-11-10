@@ -13,7 +13,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenItem_AndLocation_WhenPut_ThenItemIsPlaced()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var sut = new MergeWorkspace(
                 2,
                 2,
@@ -34,7 +34,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenWorkspaceWithItem_AndLocation_WhenGet_ThenItemIsReturned()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var sut = new MergeWorkspace(
                 2,
                 2,
@@ -58,7 +58,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenEmptyWorkspace_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var sut = new MergeWorkspace(
@@ -79,7 +79,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenWorkspaceWithWithOneItem_AndFromLocation_AndToLocation_WhenMove_ThenTrueReturned_AndItemMoved()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var sut = new MergeWorkspace(
@@ -109,7 +109,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenWorkspaceWithNonMergeableItems_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var sut = new MergeWorkspace(
@@ -142,7 +142,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenWorkspaceWithMergeableItems_AndFromLocation_AndToLocation_AndItemInBothLocations_AndMergeSuccess_WhenMove_ThenMergeServiceCalled_AndTrueReturned()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var sut = new MergeWorkspace(
                 2,
                 2,
@@ -184,7 +184,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         public void GivenWorkspaceWithMergeableItems_AndFromLocation_AndToLocation_AndItemInBothLocations_AndMergeFailed_WhenMove_ThenMergeServiceCalled_AndFalseReturned()
         {
             // Arrange
-            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var sut = new MergeWorkspace(
                 2,
                 2,
