@@ -1,4 +1,5 @@
-﻿using MergeCraft.Core.IO.Interfaces;
+﻿using MergeCraft.Core.Data;
+using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
 using Moq;
@@ -22,7 +23,7 @@ namespace MergeCraft.Core.UnitTests.Merge
                 new WorkspaceComponentItem(
                     "Foo",
                     new Component()),
-                new Data.Location(0, 0));
+                new Location(0, 0));
 
             // Assert
             Assert.True(success);
@@ -42,10 +43,10 @@ namespace MergeCraft.Core.UnitTests.Merge
                     new Component());
             sut.Put(
                 item,
-                new Data.Location(0, 0));
+                new Location(0, 0));
 
             // Act
-            var result = sut.Get(new Data.Location(0, 0));
+            var result = sut.Get(new Location(0, 0));
 
             // Assert
             Assert.NotNull(result);
@@ -68,15 +69,15 @@ namespace MergeCraft.Core.UnitTests.Merge
             var to = new WorkspaceGenerator(mockComponentDirectory.Object);
             sut.Put(
                 from,
-                new Data.Location(0, 0));
+                new Location(0, 0));
             sut.Put(
                 to,
-                new Data.Location(1, 1));
+                new Location(1, 1));
 
             // Act
             var result = sut.Move(
-                new Data.Location(0, 0),
-                new Data.Location(1, 1));
+                new Location(0, 0),
+                new Location(1, 1));
 
             // Assert
             Assert.False(result);
@@ -99,10 +100,10 @@ namespace MergeCraft.Core.UnitTests.Merge
                     new Component());
             sut.Put(
                 from,
-                new Data.Location(0, 0));
+                new Location(0, 0));
             sut.Put(
                 to,
-                new Data.Location(1, 1));
+                new Location(1, 1));
 
             mockWorkspaceMergerService.Setup(x => x.Merge(
                 It.IsAny<IWorkspaceMergeable<Component>>(),
@@ -113,8 +114,8 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Act
             var result = sut.Move(
-                new Data.Location(0, 0),
-                new Data.Location(1, 1));
+                new Location(0, 0),
+                new Location(1, 1));
 
             // Assert
             Assert.True(result);
@@ -141,10 +142,10 @@ namespace MergeCraft.Core.UnitTests.Merge
                     new Component());
             sut.Put(
                 from,
-                new Data.Location(0, 0));
+                new Location(0, 0));
             sut.Put(
                 to,
-                new Data.Location(1, 1));
+                new Location(1, 1));
 
             mockWorkspaceMergerService.Setup(x => x.Merge(
                 It.IsAny<IWorkspaceMergeable<Component>>(),
@@ -153,8 +154,8 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Act
             var result = sut.Move(
-                new Data.Location(0, 0),
-                new Data.Location(1, 1));
+                new Location(0, 0),
+                new Location(1, 1));
 
             // Assert
             Assert.False(result);

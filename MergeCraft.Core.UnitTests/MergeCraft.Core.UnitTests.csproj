@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\Data\MetalComponents.json" Link="Data\MetalComponents.json">
+    <Content Include="..\Data\MetalComponents.json" Link="TestData\MetalComponents.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\MetalJunkGenerator.json">
+    <Content Include="TestData\MetalJunkGenerator.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

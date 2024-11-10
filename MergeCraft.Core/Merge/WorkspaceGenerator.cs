@@ -4,11 +4,12 @@ using System;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceGenerator : IWorkspacePlaceable, IWorkspaceGenerator<WorkspaceGeneratorConfiguration, WorkspaceComponentItem>
+    public class WorkspaceGenerator : IWorkspacePlaceable
     {
         private readonly IComponentDirectory<Component> _componentDirectory;
-        private IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem>? _configuration;
+        private WorkspaceGeneratorConfiguration? _configuration;
 
+        private int _remainingWeight;
         public string Id { get; }
 
         public WorkspaceGenerator(IComponentDirectory<Component> componentDirectory)
@@ -17,13 +18,16 @@ namespace MergeCraft.Core.Merge
             _componentDirectory = componentDirectory;
         }
 
-        public void Initialise(IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem> configuration)
+        public void Initialise(WorkspaceGeneratorConfiguration configuration)
         {
             _configuration = configuration;
+            _remainingWeight = _configuration.TotalWeight;
         }
 
         public WorkspaceComponentItem? Generate()
         {
+            // need probabilty distribution classes
+
             /*if(Count > 0)
             {
                 var bom = _componentDirectory.GetBom(Id);

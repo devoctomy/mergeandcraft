@@ -5,7 +5,7 @@ namespace MergeCraft.Core.UnitTests.IO
     public class ComponentLoaderTests
     {
         [Theory]
-        [InlineData("Data/MetalComponents.json", new string[]
+        [InlineData("TestData/MetalComponents.json", new string[]
         {
             "scrap.metal",
             "component.metal.wire",

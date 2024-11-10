@@ -1,12 +1,12 @@
-﻿using MergeCraft.Core.Merge.Interfaces;
+﻿using MergeCraft.Core.Merge;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MergeCraft.Core.IO.Interfaces
 {
-    public interface IWorkspaceGeneratorConfigurationLoader<T> where T : class, IWorkspaceGeneratorConfigurationItem
+    public interface IWorkspaceGeneratorConfigurationLoader
     {
-        public Task<IWorkspaceGeneratorConfiguration<T>?> LoadAsync(
+        public Task<WorkspaceGeneratorConfiguration?> LoadAsync(
             string path,
             CancellationToken cancellationToken);
     }

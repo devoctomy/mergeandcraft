@@ -13,7 +13,7 @@ namespace MergeCraft.Core.UnitTests.IO
 
             // Act
             var result = await sut.LoadAsync(
-                "Data/MetalJunkGenerator.json",
+                "TestData/MetalJunkGenerator.json",
                 cancellationTokenSource.Token);
 
             // Assert

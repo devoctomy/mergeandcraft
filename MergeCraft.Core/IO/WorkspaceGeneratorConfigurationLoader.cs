@@ -1,15 +1,14 @@
 ﻿using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
-using MergeCraft.Core.Merge.Interfaces;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MergeCraft.Core.IO
 {
-    public class WorkspaceGeneratorConfigurationLoader : IWorkspaceGeneratorConfigurationLoader<IWorkspaceGeneratorConfigurationItem>
+    public class WorkspaceGeneratorConfigurationLoader : IWorkspaceGeneratorConfigurationLoader
     {
-        public async Task<IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem>?> LoadAsync(
+        public async Task<WorkspaceGeneratorConfiguration?> LoadAsync(
             string path,
             CancellationToken cancellationToken)
         {
@@ -20,6 +19,11 @@ namespace MergeCraft.Core.IO
                 PropertyNameCaseInsensitive = true
             };
             var config = JsonSerializer.Deserialize<WorkspaceGeneratorConfiguration>(jsonRaw, options);
+            if(config != null)
+            {
+                config.RemainingWeight = config.TotalWeight; // Move this into a public method
+            }
+
             return config;
         }
     }

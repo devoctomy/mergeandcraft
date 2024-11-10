@@ -2,10 +2,10 @@
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceGeneratorConfigurationItem : IWorkspaceGeneratorConfigurationItem
+    public class WorkspaceGeneratorConfigurationItem
     {
         public string? Id { get; set; }
-        public float Probability { get; set; }
+        public int Probability { get; set; }
         public int Weight { get; set; }
     }
 }

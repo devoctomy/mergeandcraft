@@ -6,17 +6,17 @@
   "items": [
     {
       "id": "scrap.metal",
-      "probability": 0.6,
+      "probability": 60,
       "weight": 1
     },
     {
       "id": "component.metal.wire",
-      "probability": 0.3,
+      "probability": 30,
       "weight": 2
     },
     {
       "id": "component.metal.spring",
-      "probability": 0.2,
+      "probability": 20,
       "weight": 4
     }
   ]
