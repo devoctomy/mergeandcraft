@@ -55,7 +55,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
-        public void GivenEmpty_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
+        public void GivenEmptyWorkspace_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
