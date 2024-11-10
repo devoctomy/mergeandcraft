@@ -55,6 +55,57 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
+        public void GivenEmpty_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
+            var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
+            var sut = new MergeWorkspace(
+                2,
+                2,
+                mockWorkspaceMergerService.Object);
+
+            // Act
+            var result = sut.Move(
+                new Location(0, 0),
+                new Location(1, 1));
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenWorkspaceWithWithOneItem_AndFromLocation_AndToLocation_WhenMove_ThenTrueReturned_AndItemMoved()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
+            var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
+            var sut = new MergeWorkspace(
+                2,
+                2,
+                mockWorkspaceMergerService.Object);
+            var from = new WorkspaceComponentItem(
+                    "Foo",
+                    new Component());
+            sut.Put(
+                from,
+                new Location(0, 0));
+
+            // Act
+            var result = sut.Move(
+                new Location(0, 0),
+                new Location(1, 1));
+
+            // Assert
+            Assert.True(result);
+            var item = sut.Get(new Location(1, 1));
+            Assert.NotNull(item);
+            Assert.Equal(from, item);
+        }
+
+        [Fact]
         public void GivenWorkspaceWithNonMergeableItems_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
         {
             // Arrange

@@ -67,7 +67,7 @@ namespace MergeCraft.Core.Merge
                 if(!(source is IWorkspaceMergeable<Component>) ||
                     !(destination is IWorkspaceMergeable<Component>))
                 {
-                    // Can only merge workspace component items
+                    // Can only merge workspace component items at current
                     return false;
                 }
 
