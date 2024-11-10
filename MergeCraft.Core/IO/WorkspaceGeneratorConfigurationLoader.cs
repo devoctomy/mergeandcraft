@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace MergeCraft.Core.IO
 {
-    public class WorkspaceGeneratorConfigurationLoader : IWorkspaceGeneratorConfigurationLoader<WorkspaceGeneratorConfigurationItem>
+    public class WorkspaceGeneratorConfigurationLoader : IWorkspaceGeneratorConfigurationLoader<IWorkspaceGeneratorConfigurationItem>
     {
-        public async Task<IWorkspaceGeneratorConfiguration<WorkspaceGeneratorConfigurationItem>?> LoadAsync(
+        public async Task<IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem>?> LoadAsync(
             string path,
             CancellationToken cancellationToken)
         {

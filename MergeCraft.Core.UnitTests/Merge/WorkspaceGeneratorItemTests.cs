@@ -13,10 +13,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var workspaceGeneratorItem = new WorkspaceGeneratorItem(
-                "component.metal.spring",
-                1,
-                mockComponentDirectory.Object);
+            var sut = new WorkspaceGenerator(mockComponentDirectory.Object);
 
             mockComponentDirectory.Setup(x => x.GetBom("component.metal.spring"))
                 .Returns(new ComponentBom
@@ -29,9 +26,11 @@ namespace MergeCraft.Core.UnitTests.Merge
                     }
                 });
 
+            //sut.Initialise !!! Initialise this
+
             // Act
-            var workspaceComponentItem1 = workspaceGeneratorItem.Generate();
-            var workspaceComponentItem2 = workspaceGeneratorItem.Generate();
+            var workspaceComponentItem1 = sut.Generate();
+            var workspaceComponentItem2 = sut.Generate();
 
             // Assert
             Assert.NotNull(workspaceComponentItem1);
@@ -46,16 +45,15 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Arrange
             var id = "component.metal.spring";
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var workspaceGeneratorItem = new WorkspaceGeneratorItem(
-                id,
-                1,
-                mockComponentDirectory.Object);
+            var sut = new WorkspaceGenerator(mockComponentDirectory.Object);
+
+            //sut.Initialise !!! Initialise this
 
             mockComponentDirectory.Setup(x => x.GetBom(id))
                 .Returns(default(ComponentBom));
 
             // Act & Assert
-            var exception = Assert.Throws<ComponentBomNotFoundException>(() => workspaceGeneratorItem.Generate());
+            var exception = Assert.Throws<ComponentBomNotFoundException>(() => sut.Generate());
             Assert.Equal($"Bom not found for component '{id}'.", exception.Message);
             Assert.Equal(id, exception.Id);
         }

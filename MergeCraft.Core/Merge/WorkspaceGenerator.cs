@@ -1,29 +1,31 @@
 ﻿using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge.Interfaces;
+using System;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceGeneratorItem : IWorkspacePlaceable, IWorkspaceGenerator<WorkspaceComponentItem>
+    public class WorkspaceGenerator : IWorkspacePlaceable, IWorkspaceGenerator<WorkspaceGeneratorConfiguration, WorkspaceComponentItem>
     {
         private readonly IComponentDirectory<Component> _componentDirectory;
+        private IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem>? _configuration;
 
         public string Id { get; }
-        public int Count { get; private set; }
 
-        public WorkspaceGeneratorItem(
-            string id,
-            int count,
-            IComponentDirectory<Component> componentDirectory)
+        public WorkspaceGenerator(IComponentDirectory<Component> componentDirectory)
         {
-            Id = id;
-            Count = count;
+            Id = Guid.NewGuid().ToString();
             _componentDirectory = componentDirectory;
+        }
+
+        public void Initialise(IWorkspaceGeneratorConfiguration<IWorkspaceGeneratorConfigurationItem> configuration)
+        {
+            _configuration = configuration;
         }
 
         public WorkspaceComponentItem? Generate()
         {
-            if(Count > 0)
+            /*if(Count > 0)
             {
                 var bom = _componentDirectory.GetBom(Id);
                 if (bom == null)
@@ -37,7 +39,7 @@ namespace MergeCraft.Core.Merge
                     component);
                 Count--;
                 return item;
-            }
+            }*/
 
             return null;
         }

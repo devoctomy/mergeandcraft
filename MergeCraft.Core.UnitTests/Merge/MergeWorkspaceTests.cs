@@ -65,10 +65,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
-            var to = new WorkspaceGeneratorItem(
-                "Bar",
-                0,
-                mockComponentDirectory.Object);
+            var to = new WorkspaceGenerator(mockComponentDirectory.Object);
             sut.Put(
                 from,
                 new Data.Location(0, 0));
