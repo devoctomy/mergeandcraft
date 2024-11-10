@@ -1,5 +1,5 @@
 ﻿using MergeCraft.Core.Exceptions;
-using MergeCraft.Core.IO;
+using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge.Interfaces;
 
 namespace MergeCraft.Core.Merge

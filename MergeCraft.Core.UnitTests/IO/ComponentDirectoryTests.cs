@@ -1,4 +1,5 @@
 ﻿using MergeCraft.Core.IO;
+using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
 using Moq;
 

@@ -1,4 +1,5 @@
-﻿using MergeCraft.Core.Merge;
+﻿using MergeCraft.Core.IO.Interfaces;
+using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
 using System.Collections.Generic;
 using System.Linq;

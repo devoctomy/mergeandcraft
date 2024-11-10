@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace MergeCraft.Core.IO
+namespace MergeCraft.Core.IO.Interfaces
 {
     public interface IComponentDirectory<T> where T : class, IComponent<T>
     {

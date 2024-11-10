@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
+using MergeCraft.Core.IO.Interfaces;
 
 namespace MergeCraft.Core.IO
 {
