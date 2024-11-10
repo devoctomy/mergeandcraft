@@ -1,0 +1,23 @@
+﻿{
+  "id": "generator.metaljunk",
+  "name": "Junk Metal Pile",
+  "description": "Pile of junk metal containing various metal components.",
+  "totalWeight": 100,
+  "items": [
+    {
+      "id": "scrap.metal",
+      "probability": 60,
+      "weight": 1
+    },
+    {
+      "id": "component.metal.wire",
+      "probability": 30,
+      "weight": 2
+    },
+    {
+      "id": "component.metal.spring",
+      "probability": 20,
+      "weight": 4
+    }
+  ]
+}
