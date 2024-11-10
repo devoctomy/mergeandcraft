@@ -1,7 +1,6 @@
 ﻿using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
-using MergeCraft.Core.Merge.Interfaces;
 using Moq;
 
 namespace MergeCraft.Core.UnitTests.Merge
