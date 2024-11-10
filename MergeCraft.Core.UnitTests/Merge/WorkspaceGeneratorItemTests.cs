@@ -1,4 +1,5 @@
-﻿using MergeCraft.Core.Exceptions;
+﻿using MergeCraft.Core.Data.Interfaces;
+using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
 using Moq;
@@ -12,7 +13,10 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var sut = new WorkspaceGenerator(mockComponentDirectory.Object);
+            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
+            var sut = new WorkspaceGenerator(
+                mockComponentDirectory.Object,
+                mockProbabilityDistributionService.Object);
 
             mockComponentDirectory.Setup(x => x.GetBom("component.metal.spring"))
                 .Returns(new ComponentBom
@@ -44,7 +48,9 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Arrange
             var id = "component.metal.spring";
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var sut = new WorkspaceGenerator(mockComponentDirectory.Object);
+            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
+            var sut = new WorkspaceGenerator(mockComponentDirectory.Object,
+                mockProbabilityDistributionService.Object);
 
             //sut.Initialise !!! Initialise this
 

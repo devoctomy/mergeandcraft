@@ -1,4 +1,5 @@
 ﻿using MergeCraft.Core.Data;
+using MergeCraft.Core.Data.Interfaces;
 using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
@@ -58,6 +59,7 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceMergerService<Component>>();
+            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var sut = new MergeWorkspace(
                 2,
@@ -66,7 +68,9 @@ namespace MergeCraft.Core.UnitTests.Merge
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
-            var to = new WorkspaceGenerator(mockComponentDirectory.Object);
+            var to = new WorkspaceGenerator(
+                mockComponentDirectory.Object,
+                mockProbabilityDistributionService.Object);
             sut.Put(
                 from,
                 new Location(0, 0));

@@ -1,4 +1,6 @@
-﻿using MergeCraft.Core.IO.Interfaces;
+﻿using MergeCraft.Core.Data.Interfaces;
+using MergeCraft.Core.Exceptions;
+using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge.Interfaces;
 using System;
 
@@ -7,15 +9,19 @@ namespace MergeCraft.Core.Merge
     public class WorkspaceGenerator : IWorkspacePlaceable
     {
         private readonly IComponentDirectory<Component> _componentDirectory;
+        private readonly IProbabilityDistributionService _probabilityDistributionService;
         private WorkspaceGeneratorConfiguration? _configuration;
 
         private int _remainingWeight;
         public string Id { get; }
 
-        public WorkspaceGenerator(IComponentDirectory<Component> componentDirectory)
+        public WorkspaceGenerator(
+            IComponentDirectory<Component> componentDirectory,
+            IProbabilityDistributionService probabilityDistributionService)
         {
             Id = Guid.NewGuid().ToString();
             _componentDirectory = componentDirectory;
+            _probabilityDistributionService = probabilityDistributionService;
         }
 
         public void Initialise(WorkspaceGeneratorConfiguration configuration)
@@ -26,10 +32,14 @@ namespace MergeCraft.Core.Merge
 
         public WorkspaceComponentItem? Generate()
         {
-            // need probabilty distribution classes
-
-            /*if(Count > 0)
+            if(_configuration == null)
             {
+                throw new InvalidOperationException("Generator not initialised");
+            }
+
+            if (_configuration.RemainingWeight > 0)
+            {
+                var picked = _probabilityDistributionService.Next(_configuration);
                 var bom = _componentDirectory.GetBom(Id);
                 if (bom == null)
                 {
@@ -40,9 +50,8 @@ namespace MergeCraft.Core.Merge
                 var item = new WorkspaceComponentItem(
                     Id,
                     component);
-                Count--;
                 return item;
-            }*/
+            }
 
             return null;
         }
