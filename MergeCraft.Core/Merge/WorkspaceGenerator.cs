@@ -34,21 +34,21 @@ namespace MergeCraft.Core.Merge
         {
             if(_configuration == null)
             {
-                throw new InvalidOperationException("Generator not initialised");
+                throw new InvalidOperationException("Generator not initialised.");
             }
 
             if (_configuration.RemainingWeight > 0)
             {
                 var picked = _probabilityDistributionService.Next(_configuration);
-                var bom = _componentDirectory.GetBom(Id);
+                var bom = _componentDirectory.GetBom(picked.Id!);
                 if (bom == null)
                 {
-                    throw new ComponentBomNotFoundException(Id);
+                    throw new ComponentBomNotFoundException(picked.Id!);
                 }
 
-                var component = bom.Get(Id)!;
+                var component = bom.Get(picked.Id!)!;
                 var item = new WorkspaceComponentItem(
-                    Id,
+                    picked.Id!,
                     component);
                 return item;
             }
