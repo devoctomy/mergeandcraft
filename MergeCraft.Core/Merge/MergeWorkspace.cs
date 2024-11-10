@@ -60,34 +60,33 @@ namespace MergeCraft.Core.Merge
                 return false;
             }
 
-            if (Workspace[to.X, to.Y] != null)
+            var destination = Workspace[to.X, to.Y];
+            if (destination == null)
             {
-                var destination = Workspace[to.X, to.Y];
-
-                if(!(source is IWorkspaceMergeable<Component>) ||
-                    !(destination is IWorkspaceMergeable<Component>))
-                {
-                    // Can only merge workspace component items at current
-                    return false;
-                }
-
-                var sourceComponentItem = source as IWorkspaceMergeable<Component>;
-                var destinationComponentItem = destination as IWorkspaceMergeable<Component>;
-
-                var merged = _workspaceMergerService.Merge(
-                    sourceComponentItem!,
-                    destinationComponentItem!);
-                if (merged == null)
-                {
-                    return false;
-                }
-
-                _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
+                _workspace[to.X, to.Y] = source;
+                _workspace[from.X, from.Y] = null;
                 return true;
             }
 
-            _workspace[to.X, to.Y] = source;
-            _workspace[from.X, from.Y] = null;
+            if (!(source is IWorkspaceMergeable<Component>) ||
+                !(destination is IWorkspaceMergeable<Component>))
+            {
+                // Can only merge workspace component items at current
+                return false;
+            }
+
+            var sourceComponentItem = source as IWorkspaceMergeable<Component>;
+            var destinationComponentItem = destination as IWorkspaceMergeable<Component>;
+
+            var merged = _workspaceMergerService.Merge(
+                sourceComponentItem!,
+                destinationComponentItem!);
+            if (merged == null)
+            {
+                return false;
+            }
+
+            _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
             return true;
         }
     }
