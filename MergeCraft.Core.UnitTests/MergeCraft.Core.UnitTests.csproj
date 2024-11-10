@@ -10,11 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Data\MetalJunkGenerator.json" />
     <None Remove="Data\Test Data Goes Here.txt" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="..\Data\MetalComponents.json" Link="Data\MetalComponents.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Data\MetalJunkGenerator.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

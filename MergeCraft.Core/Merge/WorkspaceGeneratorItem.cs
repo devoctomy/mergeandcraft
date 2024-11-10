@@ -26,7 +26,7 @@ namespace MergeCraft.Core.Merge
             if(Count > 0)
             {
                 var bom = _componentDirectory.GetBom(Id);
-                if(bom == null)
+                if (bom == null)
                 {
                     throw new ComponentBomNotFoundException(Id);
                 }

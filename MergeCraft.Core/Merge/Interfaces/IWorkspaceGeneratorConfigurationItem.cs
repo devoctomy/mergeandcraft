@@ -1,6 +1,6 @@
-﻿namespace MergeCraft.Core.IO.Interfaces
+﻿namespace MergeCraft.Core.Merge.Interfaces
 {
-    public interface IWorkspaceGeneratorConfigurationIItem
+    public interface IWorkspaceGeneratorConfigurationItem
     {
         public string? Id { get; set; }
         public float Probability { get; set; }
