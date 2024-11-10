@@ -14,10 +14,9 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+
+            sut.Initialise(1, 1);
 
             // Act
             var success = sut.Put(
@@ -35,10 +34,9 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
             var item = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
@@ -59,12 +57,8 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
 
             // Act
             var result = sut.Move(
@@ -80,12 +74,9 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
@@ -112,10 +103,9 @@ namespace MergeCraft.Core.UnitTests.Merge
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
@@ -143,10 +133,9 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
@@ -185,10 +174,9 @@ namespace MergeCraft.Core.UnitTests.Merge
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
-            var sut = new MergeWorkspace(
-                2,
-                2,
-                mockWorkspaceMergerService.Object);
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());

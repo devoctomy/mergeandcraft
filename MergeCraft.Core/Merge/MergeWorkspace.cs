@@ -8,18 +8,16 @@ namespace MergeCraft.Core.Merge
     public class MergeWorkspace : IMergeWorkspace<IWorkspacePlaceable>
     {
         private readonly IWorkspaceComponentMergerService<Component> _workspaceComponentMergerService;
-        private readonly IWorkspacePlaceable?[,] _workspace;
+        private IWorkspacePlaceable?[,] _workspace;
         private bool _initialised = false;
 
         public int Width { get; private set; } = 0;
         public int Height { get; private set; } = 0;
-        public ReadOnly2DArray<IWorkspacePlaceable?> Workspace { get; }
+        public ReadOnly2DArray<IWorkspacePlaceable?> Workspace { get; private set; }
 
         public MergeWorkspace(IWorkspaceComponentMergerService<Component> workspaceComponentMergerService)
         {
             _workspaceComponentMergerService = workspaceComponentMergerService;
-            _workspace = new IWorkspacePlaceable?[Width, Height];
-            Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
         }
 
         public void Initialise(
@@ -28,6 +26,8 @@ namespace MergeCraft.Core.Merge
         {
             Width = width;
             Height = height;
+            _workspace = new IWorkspacePlaceable?[Width, Height];
+            Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
             _initialised = true;
         }
 

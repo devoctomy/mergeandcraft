@@ -22,7 +22,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             var target = new WorkspaceComponentItem(
                 Guid.NewGuid().ToString(),
                 component);
-            var sut = new WorkspaceMergerService();
+            var sut = new WorkspaceComponentMergerService();
 
             // Act
             var merged = sut.Merge(source, target);
