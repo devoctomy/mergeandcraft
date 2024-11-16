@@ -29,28 +29,6 @@ namespace MergeCraft.Core.Merge
             _workspace = new IWorkspacePlaceable?[Width, Height];
             Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
             _initialised = true;
-<<<<<<< HEAD
-        }
-
-        public bool Put(
-            IWorkspacePlaceable workspaceItem,
-            Location location)
-        {
-            if (!_initialised)
-            {
-                throw new MergeWorkspaceNotInitialisedException();
-            }
-
-            if (Workspace[location.X, location.Y] != null)
-            {
-                return false;
-            }
-
-            _workspace[location.X, location.Y] = workspaceItem;
-            return true;
-        }
-
-=======
         }
 
         public bool Put(
@@ -62,16 +40,15 @@ namespace MergeCraft.Core.Merge
                 throw new MergeWorkspaceNotInitialisedException();
             }
 
-            if (Workspace[location.X, location.Y] != null)
+            if (Workspace![location.X, location.Y] != null)
             {
                 return false;
             }
 
-            _workspace[location.X, location.Y] = workspaceItem;
+            _workspace![location.X, location.Y] = workspaceItem;
             return true;
         }
 
->>>>>>> 9d21dfdaa3015f9bcb2b75795d17d6a0fdd0d75b
         public IWorkspacePlaceable? Get(Location location)
         {
             if (!_initialised)
@@ -85,7 +62,7 @@ namespace MergeCraft.Core.Merge
                 throw new LocationOutOfBoundsException(location, Width, Height);
             }
 
-            return Workspace[location.X, location.Y];
+            return Workspace![location.X, location.Y];
         }
 
         public bool Move(
@@ -97,7 +74,7 @@ namespace MergeCraft.Core.Merge
                 throw new MergeWorkspaceNotInitialisedException();
             }
 
-            var source = Workspace[from.X, from.Y];
+            var source = Workspace![from.X, from.Y];
             if (source == null)
             {
                 return false;
@@ -106,7 +83,7 @@ namespace MergeCraft.Core.Merge
             var destination = Workspace[to.X, to.Y];
             if (destination == null)
             {
-                _workspace[to.X, to.Y] = source;
+                _workspace![to.X, to.Y] = source;
                 _workspace[from.X, from.Y] = null;
                 return true;
             }
@@ -131,8 +108,7 @@ namespace MergeCraft.Core.Merge
                 return false;
             }
 
-            _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
-<<<<<<< HEAD
+            _workspace![from.X, from.Y] = merged as IWorkspacePlaceable;
             return true;
         }
 
@@ -159,9 +135,3 @@ namespace MergeCraft.Core.Merge
         }
     }
 }
-=======
-            return true;
-        }
-    }
-}
->>>>>>> 9d21dfdaa3015f9bcb2b75795d17d6a0fdd0d75b
