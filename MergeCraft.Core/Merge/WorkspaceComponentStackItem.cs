@@ -7,18 +7,21 @@ namespace MergeCraft.Core.Merge
     {
         public string Id { get; }
         public int Count { get; private set; }
+        public int Max { get; }
         public Component Component { get; }
 
         public WorkspaceComponentStackItem(
             Component component,
-            int count)
+            int count,
+            int max)
         {
             Id = Guid.NewGuid().ToString();
             Component = component;
             Count = count;
+            Max = max;
         }
 
-        public WorkspaceComponentItem? Pick()
+        public WorkspaceComponentItem? Pop()
         {
             if(Count == 0)
             {
@@ -30,6 +33,17 @@ namespace MergeCraft.Core.Merge
                 Component);
             Count--;
             return item;
+        }
+
+        public bool Push()
+        {
+            if(Count == Max)
+            {
+                return false;
+            }    
+
+            Count++;
+            return true;
         }
     }
 }

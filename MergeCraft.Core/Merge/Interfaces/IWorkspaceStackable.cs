@@ -3,7 +3,9 @@
     public interface IWorkspaceStackable<T, CT> where T : class, IWorkspacePlaceable
     {
         public int Count { get; }
+        public int Max { get; }
         public CT Component { get; }
-        public T? Pick();
+        public bool Push();
+        public T? Pop();
     }
 }
