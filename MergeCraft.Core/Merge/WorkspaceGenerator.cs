@@ -48,7 +48,7 @@ namespace MergeCraft.Core.Merge
 
                 var component = bom.Get(picked.Id!)!;
                 var item = new WorkspaceComponentItem(
-                    picked.Id!, // Should be a unique ID?
+                    Guid.NewGuid().ToString(),
                     component);
                 return item;
             }

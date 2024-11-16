@@ -112,7 +112,7 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal("Foo", result.Id);
+            Assert.Equal("Foo", result.Component.Id);
             Assert.Equal(component, result.Component);
             mockProbabilityDistributionService.Verify(x => x.Next(
                 It.Is<WorkspaceGeneratorConfiguration>(y => y == config)),
