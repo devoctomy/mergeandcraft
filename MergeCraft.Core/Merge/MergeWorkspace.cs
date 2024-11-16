@@ -8,12 +8,12 @@ namespace MergeCraft.Core.Merge
     public class MergeWorkspace : IMergeWorkspace<IWorkspacePlaceable>
     {
         private readonly IWorkspaceComponentMergerService<Component> _workspaceComponentMergerService;
-        private IWorkspacePlaceable?[,] _workspace;
+        private IWorkspacePlaceable?[,]? _workspace;
         private bool _initialised = false;
 
         public int Width { get; private set; } = 0;
         public int Height { get; private set; } = 0;
-        public ReadOnly2DArray<IWorkspacePlaceable?> Workspace { get; private set; }
+        public ReadOnly2DArray<IWorkspacePlaceable?>? Workspace { get; private set; }
 
         public MergeWorkspace(IWorkspaceComponentMergerService<Component> workspaceComponentMergerService)
         {
@@ -29,6 +29,7 @@ namespace MergeCraft.Core.Merge
             _workspace = new IWorkspacePlaceable?[Width, Height];
             Workspace = new ReadOnly2DArray<IWorkspacePlaceable?>(_workspace);
             _initialised = true;
+<<<<<<< HEAD
         }
 
         public bool Put(
@@ -49,6 +50,28 @@ namespace MergeCraft.Core.Merge
             return true;
         }
 
+=======
+        }
+
+        public bool Put(
+            IWorkspacePlaceable workspaceItem,
+            Location location)
+        {
+            if(!_initialised)
+            {
+                throw new MergeWorkspaceNotInitialisedException();
+            }
+
+            if (Workspace[location.X, location.Y] != null)
+            {
+                return false;
+            }
+
+            _workspace[location.X, location.Y] = workspaceItem;
+            return true;
+        }
+
+>>>>>>> 9d21dfdaa3015f9bcb2b75795d17d6a0fdd0d75b
         public IWorkspacePlaceable? Get(Location location)
         {
             if (!_initialised)
@@ -109,6 +132,7 @@ namespace MergeCraft.Core.Merge
             }
 
             _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
+<<<<<<< HEAD
             return true;
         }
 
@@ -135,3 +159,9 @@ namespace MergeCraft.Core.Merge
         }
     }
 }
+=======
+            return true;
+        }
+    }
+}
+>>>>>>> 9d21dfdaa3015f9bcb2b75795d17d6a0fdd0d75b

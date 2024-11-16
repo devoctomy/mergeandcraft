@@ -7,7 +7,7 @@ namespace MergeCraft.Core.Merge.Interfaces
     {
         public int Width { get; }
         public int Height { get; }
-        public ReadOnly2DArray<T?> Workspace { get; }
+        public ReadOnly2DArray<T?>? Workspace { get; }
 
         bool Put(
             T workspaceItem,
