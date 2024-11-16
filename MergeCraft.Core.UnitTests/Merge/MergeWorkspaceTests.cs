@@ -97,6 +97,30 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
+        public void GivenWorkspaceWithWithGenerator_WhenActivate_ThenGeneratorGenerateCalled()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
+            var generator = new TestWorkspaceGenerator(
+                "Foo",
+                new Component());
+            sut.Put(
+                generator,
+                new Location(0, 0));
+
+            // Act
+            var result = sut.Activate(
+                new Location(0, 0));
+
+            // Assert
+            Assert.True(result);
+            Assert.True(generator.GenerateCalled);
+        }
+
+        [Fact]
         public void GivenWorkspaceWithNonMergeableItems_AndFromLocation_AndToLocation_WhenMove_ThenFalseReturned()
         {
             // Arrange

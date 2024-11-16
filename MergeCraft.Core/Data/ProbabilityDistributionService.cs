@@ -14,10 +14,16 @@ namespace MergeCraft.Core.Data
             _random = new Random();
         }
 
-        public WorkspaceGeneratorConfigurationItem Next(WorkspaceGeneratorConfiguration configuration)
+        public WorkspaceGeneratorConfigurationItem? Next(
+            int remainingWeight,
+            WorkspaceGeneratorConfiguration configuration)
         {
             var items = configuration.Items;
-            items = items.Where(x => x.Weight < configuration.RemainingWeight).ToList();
+            items = items.Where(x => x.Weight < remainingWeight).ToList();
+            if(items.Count == 0)
+            {
+                return null;
+            }
 
             var runningTotal = 0;
             var chances = items.Select(x =>
@@ -30,7 +36,6 @@ namespace MergeCraft.Core.Data
             var picked = chances.First(x => x.Probability >= select);
 
             var item = picked.Key;
-            configuration.RemainingWeight -= item.Weight;
             return item;
         }
     }

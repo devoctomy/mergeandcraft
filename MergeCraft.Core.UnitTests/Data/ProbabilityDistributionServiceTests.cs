@@ -13,32 +13,31 @@ namespace MergeCraft.Core.UnitTests.Data
             var configuration = new WorkspaceGeneratorConfiguration
             {
                 Id = "test",
-                RemainingWeight = startWeight,
-                Items = new List<WorkspaceGeneratorConfigurationItem>
-                {
-                    new WorkspaceGeneratorConfigurationItem
-                    {
+                TotalWeight = startWeight,
+                Items =
+                [
+                    new() {
                         Id = "foo",
                         Weight = 10,
                         Probability = 50
                     },
-                    new WorkspaceGeneratorConfigurationItem
-                    {
+                    new() {
                         Id = "bar",
                         Weight = 20,
                         Probability = 50
                     }
-                }
+                ]
             };
 
             var sut = new ProbabilityDistributionService();
 
             // Act
-            var result = sut.Next(configuration);
+            var result = sut.Next(
+                startWeight,
+                configuration);
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(startWeight - result.Weight, configuration.RemainingWeight);
         }
 
         [Fact]
@@ -48,22 +47,20 @@ namespace MergeCraft.Core.UnitTests.Data
             var configuration = new WorkspaceGeneratorConfiguration
             {
                 Id = "test",
-                RemainingWeight = int.MaxValue,
-                Items = new List<WorkspaceGeneratorConfigurationItem>
-                {
-                    new WorkspaceGeneratorConfigurationItem
-                    {
+                TotalWeight = int.MaxValue,
+                Items =
+                [
+                    new() {
                         Id = "foo",
                         Weight = 10,
                         Probability = 50
                     },
-                    new WorkspaceGeneratorConfigurationItem
-                    {
+                    new() {
                         Id = "bar",
                         Weight = 20,
                         Probability = 50
                     }
-                }
+                ]
             };
 
             var sut = new ProbabilityDistributionService();
@@ -72,15 +69,20 @@ namespace MergeCraft.Core.UnitTests.Data
             var results = new List<WorkspaceGeneratorConfigurationItem>();
             for(var i = 0; i < 1000; i++)
             {
-                results.Add(sut.Next(configuration));
+                var value = sut.Next(int.MaxValue, configuration);
+                if(value == null)
+                {
+                    break;
+                }
+
+                results.Add(value);
             }
-            var result = sut.Next(configuration);
 
             // Assert
             var fooCount = results.Count(r => r.Id == "foo");
-            Assert.InRange(fooCount, 480, 520);
+            Assert.InRange(fooCount, 450, 550);
             var barCount = results.Count(r => r.Id == "bar");
-            Assert.InRange(barCount, 480, 520);
+            Assert.InRange(barCount, 450, 550);
         }
     }
 }

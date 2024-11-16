@@ -35,7 +35,7 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             sut.Initialise(new WorkspaceGeneratorConfiguration
             {
-                RemainingWeight = 0
+                TotalWeight = 0
             });
 
             // Act
@@ -57,10 +57,12 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             sut.Initialise(new WorkspaceGeneratorConfiguration
             {
-                RemainingWeight = 100,
+                TotalWeight = 100,
             });
 
-            mockProbabilityDistributionService.Setup(x => x.Next(It.IsAny<WorkspaceGeneratorConfiguration>()))
+            mockProbabilityDistributionService.Setup(x => x.Next(
+                It.IsAny<int>(),
+                It.IsAny<WorkspaceGeneratorConfiguration>()))
                 .Returns(new WorkspaceGeneratorConfigurationItem
                 {
                     Id = "Foo"
@@ -87,12 +89,13 @@ namespace MergeCraft.Core.UnitTests.Merge
             };
             var config = new WorkspaceGeneratorConfiguration
             {
-                RemainingWeight = 100,
+                TotalWeight = 100,
             };
 
             sut.Initialise(config);
 
             mockProbabilityDistributionService.Setup(x => x.Next(
+                It.IsAny<int>(),
                 It.IsAny<WorkspaceGeneratorConfiguration>()))
                 .Returns(new WorkspaceGeneratorConfigurationItem
                 {
@@ -115,6 +118,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             Assert.Equal("Foo", result.Component.Id);
             Assert.Equal(component, result.Component);
             mockProbabilityDistributionService.Verify(x => x.Next(
+                It.IsAny<int>(),
                 It.Is<WorkspaceGeneratorConfiguration>(y => y == config)),
                 Times.Once);
             mockComponentDirectory.Verify(x => x.GetBom(
@@ -124,7 +128,5 @@ namespace MergeCraft.Core.UnitTests.Merge
                 It.Is<string>(y => y == "Foo")),
                 Times.Once);
         }
-
-        
     }
 }

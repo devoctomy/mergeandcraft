@@ -19,11 +19,6 @@ namespace MergeCraft.Core.IO
                 PropertyNameCaseInsensitive = true
             };
             var config = JsonSerializer.Deserialize<WorkspaceGeneratorConfiguration>(jsonRaw, options);
-            if(config != null)
-            {
-                config.RemainingWeight = config.TotalWeight; // Move this into a public method
-            }
-
             return config;
         }
     }
