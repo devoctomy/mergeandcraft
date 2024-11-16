@@ -35,7 +35,7 @@ namespace MergeCraft.Core.Merge
             IWorkspacePlaceable workspaceItem,
             Location location)
         {
-            if(!_initialised)
+            if (!_initialised)
             {
                 throw new MergeWorkspaceNotInitialisedException();
             }
@@ -110,6 +110,28 @@ namespace MergeCraft.Core.Merge
 
             _workspace[from.X, from.Y] = merged as IWorkspacePlaceable;
             return true;
+        }
+
+        public bool Activate(Location location)
+        {
+            var workspaceItem = Get(location);
+            if (workspaceItem == null)
+            {
+                return false;
+            }
+
+            return workspaceItem switch
+            {
+                IWorkspaceGenerator<WorkspaceComponentItem> generator => ActivateGenerator(generator),
+                _ => false
+            };
+        }
+
+        private bool ActivateGenerator(IWorkspaceGenerator<WorkspaceComponentItem> generator)
+        {
+            var workspaceComponentItem = generator.Generate();
+            // place workspaceComponentItem
+            return workspaceComponentItem != null;
         }
     }
 }

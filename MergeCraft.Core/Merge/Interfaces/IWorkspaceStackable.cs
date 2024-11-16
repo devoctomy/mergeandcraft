@@ -1,8 +1,9 @@
 ﻿namespace MergeCraft.Core.Merge.Interfaces
 {
-    public interface IWorkspaceStackable<T> where T : class, IComponent<T>
+    public interface IWorkspaceStackable<T, CT> where T : class, IWorkspacePlaceable
     {
-        public int Count { get; set; }
-        T Component { get; set; }
+        public int Count { get; }
+        public CT Component { get; }
+        public T? Pick();
     }
 }

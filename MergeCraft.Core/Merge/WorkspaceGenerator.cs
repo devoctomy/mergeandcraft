@@ -6,7 +6,7 @@ using System;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceGenerator : IWorkspacePlaceable
+    public class WorkspaceGenerator : IWorkspacePlaceable, IWorkspaceGenerator<WorkspaceComponentItem>
     {
         private readonly IComponentDirectory<Component> _componentDirectory;
         private readonly IProbabilityDistributionService _probabilityDistributionService;
@@ -48,7 +48,7 @@ namespace MergeCraft.Core.Merge
 
                 var component = bom.Get(picked.Id!)!;
                 var item = new WorkspaceComponentItem(
-                    picked.Id!,
+                    picked.Id!, // Should be a unique ID?
                     component);
                 return item;
             }

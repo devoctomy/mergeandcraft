@@ -15,5 +15,6 @@ namespace MergeCraft.Core.Merge.Interfaces
         bool Move(
             Location from,
             Location to);
+        bool Activate(Location location);
     }
 }

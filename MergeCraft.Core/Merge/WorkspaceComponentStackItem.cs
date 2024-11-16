@@ -1,21 +1,35 @@
 ﻿using MergeCraft.Core.Merge.Interfaces;
+using System;
 
 namespace MergeCraft.Core.Merge
 {
-    public class WorkspaceComponentStackItem : IWorkspacePlaceable, IWorkspaceStackable<Component>
+    public class WorkspaceComponentStackItem : IWorkspacePlaceable, IWorkspaceStackable<WorkspaceComponentItem, Component>
     {
         public string Id { get; }
-        public int Count { get; set; }
-        public Component Component { get; set; }
+        public int Count { get; private set; }
+        public Component Component { get; }
 
         public WorkspaceComponentStackItem(
-            string id,
-            int count,
-            Component component)
+            Component component,
+            int count)
         {
-            Id = id;
-            Count = count;
+            Id = Guid.NewGuid().ToString();
             Component = component;
+            Count = count;
+        }
+
+        public WorkspaceComponentItem? Pick()
+        {
+            if(Count == 0)
+            {
+                return null;
+            }
+
+            var item = new WorkspaceComponentItem(
+                Guid.NewGuid().ToString(),
+                Component);
+            Count--;
+            return item;
         }
     }
 }
