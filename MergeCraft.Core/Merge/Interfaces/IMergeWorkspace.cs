@@ -9,6 +9,7 @@ namespace MergeCraft.Core.Merge.Interfaces
         public int Height { get; }
         public ReadOnly2DArray<T?>? Workspace { get; }
 
+        public IWorkspacePlaceable? Get(Location location);
         bool Put(
             T workspaceItem,
             Location location);
