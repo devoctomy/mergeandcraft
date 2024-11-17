@@ -1,5 +1,6 @@
 ﻿using MergeCraft.Core.Collections.ReadOnly;
 using MergeCraft.Core.Data;
+using System.Collections.Generic;
 
 namespace MergeCraft.Core.Merge.Interfaces
 {
@@ -17,5 +18,6 @@ namespace MergeCraft.Core.Merge.Interfaces
             Location from,
             Location to);
         bool Activate(Location location);
+        List<Location> GetAllEmptyLocations();
     }
 }

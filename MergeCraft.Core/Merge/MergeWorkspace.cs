@@ -2,6 +2,7 @@
 using MergeCraft.Core.Data;
 using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.Merge.Interfaces;
+using System.Collections.Generic;
 
 namespace MergeCraft.Core.Merge
 {
@@ -133,6 +134,22 @@ namespace MergeCraft.Core.Merge
                 IWorkspaceGenerator<WorkspaceComponentItem> generator => ActivateGenerator(generator),
                 _ => false
             };
+        }
+
+        public List<Location> GetAllEmptyLocations()
+        {
+            var emptyLocations = new List<Location>();
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    if (Workspace![x, y] == null)
+                    {
+                        emptyLocations.Add(new Location(x, y));
+                    }
+                }
+            }
+            return emptyLocations;
         }
 
         private bool ActivateGenerator(IWorkspaceGenerator<WorkspaceComponentItem> generator)
