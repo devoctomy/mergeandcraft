@@ -57,6 +57,18 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
+        public void GivenUnInitialisedWorkspace_WhenPut_ThenMergeWorkspaceNotInitialisedExceptionThrown()
+        {
+            // Arrange
+            var mockPlaceableItem = new Mock<IWorkspacePlaceable>();
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+
+            // Act & Assert
+            Assert.ThrowsAny<MergeWorkspaceNotInitialisedException>(() => sut.Put(mockPlaceableItem.Object, new Location(0, 0)));
+        }
+
+        [Fact]
         public void GivenWorkspaceWithItem_AndLocation_WhenGet_ThenItemIsReturned()
         {
             // Arrange
@@ -77,6 +89,17 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Assert
             Assert.NotNull(result);
             Assert.Equal(componentItem, result);
+        }
+
+        [Fact]
+        public void GivenUnInitialisedWorkspace_WhenGet_ThenMergeWorkspaceNotInitialisedExceptionThrown()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+
+            // Act & Assert
+            Assert.ThrowsAny<MergeWorkspaceNotInitialisedException>(() => sut.Get(new Location(0, 0)));
         }
 
         [Fact]
@@ -167,6 +190,17 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
+        public void GivenUnInitialisedWorkspace_WhenActivate_ThenMergeWorkspaceNotInitialisedExceptionThrown()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+
+            // Act & Assert
+            Assert.ThrowsAny<MergeWorkspaceNotInitialisedException>(() => sut.Activate(new Location(0, 0)));
+        }
+
+        [Fact]
         public void GivenWorkspaceWithWithComponentItem_WhenActivate_ThenFalseReturned()
         {
             // Arrange
@@ -203,6 +237,19 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Assert
             Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenUnInitialisedWorkspace_WhenMove_ThenMergeWorkspaceNotInitialisedExceptionThrown()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+
+            // Act & Assert
+            Assert.ThrowsAny<MergeWorkspaceNotInitialisedException>(() => sut.Move(
+                new Location(0, 0),
+                new Location(1, 1)));
         }
 
         [Fact]
