@@ -41,7 +41,7 @@ namespace MergeAndCraft.IntTests.StepDefinitions
         {
             var loader = new WorkspaceGeneratorConfigurationLoader();
             var config = await loader.LoadAsync(path, CancellationToken.None);
-            var generator = new WorkspaceGenerator(
+            var generator = new WorkspaceGeneratorItem(
                 _bindingContext.ComponentDirectory!,
                 new ProbabilityDistributionService());
         }

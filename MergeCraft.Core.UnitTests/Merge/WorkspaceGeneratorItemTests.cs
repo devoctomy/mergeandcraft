@@ -7,7 +7,7 @@ using Moq;
 
 namespace MergeCraft.Core.UnitTests.Merge
 {
-    public class WorkspaceGeneratorTests
+    public class WorkspaceGeneratorItemTests
     {
         [Fact]
         public void GivenNotInitialised_WhenGenerate_ThenInvalidOperationExceptionThrown()
@@ -15,7 +15,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Arrange
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var sut = new WorkspaceGenerator(
+            var sut = new WorkspaceGeneratorItem(
                 mockComponentDirectory.Object,
                 mockProbabilityDistributionService.Object);
 
@@ -29,7 +29,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Arrange
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var sut = new WorkspaceGenerator(
+            var sut = new WorkspaceGeneratorItem(
                 mockComponentDirectory.Object,
                 mockProbabilityDistributionService.Object);
 
@@ -51,7 +51,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Arrange
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var sut = new WorkspaceGenerator(
+            var sut = new WorkspaceGeneratorItem(
                 mockComponentDirectory.Object,
                 mockProbabilityDistributionService.Object);
 
@@ -79,7 +79,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             var mockComponentDirectory = new Mock<IComponentDirectory<Component>>();
             var mockComponentBom = new Mock<IComponentBom<Component>>();
             var mockProbabilityDistributionService = new Mock<IProbabilityDistributionService>();
-            var sut = new WorkspaceGenerator(
+            var sut = new WorkspaceGeneratorItem(
                 mockComponentDirectory.Object,
                 mockProbabilityDistributionService.Object);
 

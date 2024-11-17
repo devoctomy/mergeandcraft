@@ -133,7 +133,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             var from = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
-            var to = new WorkspaceGenerator(
+            var to = new WorkspaceGeneratorItem(
                 mockComponentDirectory.Object,
                 mockProbabilityDistributionService.Object);
             sut.Put(
