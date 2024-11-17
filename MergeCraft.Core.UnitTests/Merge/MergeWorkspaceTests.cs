@@ -1,5 +1,6 @@
 ﻿using MergeCraft.Core.Data;
 using MergeCraft.Core.Data.Interfaces;
+using MergeCraft.Core.Exceptions;
 using MergeCraft.Core.IO.Interfaces;
 using MergeCraft.Core.Merge;
 using MergeCraft.Core.Merge.Interfaces;
@@ -10,7 +11,7 @@ namespace MergeCraft.Core.UnitTests.Merge
     public class MergeWorkspaceTests
     {
         [Fact]
-        public void GivenItem_AndLocation_WhenPut_ThenItemIsPlaced()
+        public void GivenItem_AndLocation_WhenPut_ThenTrueReturned()
         {
             // Arrange
             var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
@@ -30,6 +31,32 @@ namespace MergeCraft.Core.UnitTests.Merge
         }
 
         [Fact]
+        public void GivenItem_AndNonEmptyLocation_WhenPut_ThenFalseReturned()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(1, 1);
+
+            var componentItem = new WorkspaceComponentItem(
+                "Foo",
+                new Component());
+            sut.Put(
+                componentItem,
+                new Location(0, 0));
+
+            // Act
+            var success = sut.Put(
+                new WorkspaceComponentItem(
+                    "Foo",
+                    new Component()),
+                new Location(0, 0));
+
+            // Assert
+            Assert.False(success);
+        }
+
+        [Fact]
         public void GivenWorkspaceWithItem_AndLocation_WhenGet_ThenItemIsReturned()
         {
             // Arrange
@@ -37,11 +64,11 @@ namespace MergeCraft.Core.UnitTests.Merge
             var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
             sut.Initialise(2, 2);
 
-            var item = new WorkspaceComponentItem(
+            var componentItem = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
             sut.Put(
-                item,
+                componentItem,
                 new Location(0, 0));
 
             // Act
@@ -49,7 +76,26 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Assert
             Assert.NotNull(result);
-            Assert.Equal(item, result);
+            Assert.Equal(componentItem, result);
+        }
+
+        [Fact]
+        public void GivenWorkspace_AndLocationOOB_WhenGet_ThenLocationOutOfBoundsExceptionIsThrown()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
+            var componentItem = new WorkspaceComponentItem(
+                    "Foo",
+                    new Component());
+            sut.Put(
+                componentItem,
+                new Location(0, 0));
+
+            // Act & Assert
+            Assert.ThrowsAny<LocationOutOfBoundsException>(() => sut.Get(new Location(4, 4)));
         }
 
         [Fact]
@@ -77,11 +123,11 @@ namespace MergeCraft.Core.UnitTests.Merge
             var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
             sut.Initialise(2, 2);
 
-            var from = new WorkspaceComponentItem(
+            var componentItem = new WorkspaceComponentItem(
                     "Foo",
                     new Component());
             sut.Put(
-                from,
+                componentItem,
                 new Location(0, 0));
 
             // Act
@@ -93,7 +139,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             Assert.True(result);
             var item = sut.Get(new Location(1, 1));
             Assert.NotNull(item);
-            Assert.Equal(from, item);
+            Assert.Equal(componentItem, item);
         }
 
         [Fact]
@@ -118,6 +164,45 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Assert
             Assert.True(result);
             Assert.True(generator.GenerateCalled);
+        }
+
+        [Fact]
+        public void GivenWorkspaceWithWithComponentItem_WhenActivate_ThenFalseReturned()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
+            var componentItem = new WorkspaceComponentItem(
+                    "Foo",
+                    new Component());
+            sut.Put(
+                componentItem,
+                new Location(0, 0));
+
+            // Act
+            var result = sut.Activate(
+                new Location(0, 0));
+
+            // Assert
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void GivenEmptyWorkspace_WhenActivate_ThenFalseReturned()
+        {
+            // Arrange
+            var mockWorkspaceMergerService = new Mock<IWorkspaceComponentMergerService<Component>>();
+            var sut = new MergeWorkspace(mockWorkspaceMergerService.Object);
+            sut.Initialise(2, 2);
+
+            // Act
+            var result = sut.Activate(
+                new Location(0, 0));
+
+            // Assert
+            Assert.False(result);
         }
 
         [Fact]

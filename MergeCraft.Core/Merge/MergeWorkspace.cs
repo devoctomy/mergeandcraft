@@ -40,6 +40,8 @@ namespace MergeCraft.Core.Merge
                 throw new MergeWorkspaceNotInitialisedException();
             }
 
+            CheckLocationInBounds(location);
+
             if (Workspace![location.X, location.Y] != null)
             {
                 return false;
@@ -56,11 +58,7 @@ namespace MergeCraft.Core.Merge
                 throw new MergeWorkspaceNotInitialisedException();
             }
 
-            if ((location.X < 0 || location.X >= Width) ||
-                (location.Y < 0 || location.Y >= Height))
-            {
-                throw new LocationOutOfBoundsException(location, Width, Height);
-            }
+            CheckLocationInBounds(location);
 
             return Workspace![location.X, location.Y];
         }
@@ -73,6 +71,9 @@ namespace MergeCraft.Core.Merge
             {
                 throw new MergeWorkspaceNotInitialisedException();
             }
+
+            CheckLocationInBounds(from);
+            CheckLocationInBounds(to);
 
             var source = Workspace![from.X, from.Y];
             if (source == null)
@@ -114,6 +115,13 @@ namespace MergeCraft.Core.Merge
 
         public bool Activate(Location location)
         {
+            if (!_initialised)
+            {
+                throw new MergeWorkspaceNotInitialisedException();
+            }
+
+            CheckLocationInBounds(location);
+
             var workspaceItem = Get(location);
             if (workspaceItem == null)
             {
@@ -132,6 +140,15 @@ namespace MergeCraft.Core.Merge
             var workspaceComponentItem = generator.Generate();
             // place workspaceComponentItem
             return workspaceComponentItem != null;
+        }
+
+        private void CheckLocationInBounds(Location location)
+        {
+            if ((location.X < 0 || location.X >= Width) || 
+                (location.Y < 0 || location.Y >= Height))
+            {
+                throw new LocationOutOfBoundsException(location, Width, Height);
+            }
         }
     }
 }
