@@ -6,6 +6,36 @@ namespace MergeCraft.Core.UnitTests.Data
     public class ProbabilityDistributionServiceTests
     {
         [Fact]
+        public void GivenConfiguration_WhenNext_AndItemsTooHeavy_TheNullReturned()
+        {
+            // Arrange
+            var startWeight = 50;
+            var configuration = new WorkspaceGeneratorConfiguration
+            {
+                Id = "test",
+                TotalWeight = startWeight,
+                Items =
+                [
+                    new() {
+                        Id = "foo",
+                        Weight = 100,
+                        Probability = 100
+                    }
+                ]
+            };
+
+            var sut = new ProbabilityDistributionService();
+
+            // Act
+            var result = sut.Next(
+                startWeight,
+                configuration);
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
         public void GivenConfiguration_WhenNext_ThenNextItemReturned_AndRemainingWeightReduced()
         {
             // Arrange

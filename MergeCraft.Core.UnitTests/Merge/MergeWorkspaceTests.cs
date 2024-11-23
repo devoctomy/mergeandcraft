@@ -89,6 +89,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             // Assert
             Assert.NotNull(result);
             Assert.Equal(componentItem, result);
+            Assert.Equal("Foo", result.Id);
         }
 
         [Fact]

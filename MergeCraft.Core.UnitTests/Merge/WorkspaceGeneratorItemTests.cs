@@ -21,6 +21,7 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => sut.Generate());
+            Assert.NotEmpty(sut.Id);
         }
 
         [Fact]
@@ -43,6 +44,7 @@ namespace MergeCraft.Core.UnitTests.Merge
 
             // Assert
             Assert.Null(result);
+            Assert.NotEmpty(sut.Id);
         }
 
         [Fact]
@@ -69,7 +71,9 @@ namespace MergeCraft.Core.UnitTests.Merge
                 });
 
             // Act & Assert
-            Assert.Throws<ComponentBomNotFoundException>(() => sut.Generate());
+            var exception = Assert.Throws<ComponentBomNotFoundException>(() => sut.Generate());
+            Assert.Equal("Foo", exception.Id);
+            Assert.NotEmpty(sut.Id);
         }
 
         [Fact]
@@ -114,6 +118,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             var result = sut.Generate();
 
             // Assert
+            Assert.NotEmpty(sut.Id);
             Assert.NotNull(result);
             Assert.Equal("Foo", result.Component.Id);
             Assert.Equal(component, result.Component);

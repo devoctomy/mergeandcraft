@@ -8,10 +8,5 @@ namespace MergeCraft.Core.Exceptions
             : base(message)
         {
         }
-
-        public MergeCraftException(string message, Exception innerException)
-            : base(message, innerException)
-        {
-        }
     }
 }

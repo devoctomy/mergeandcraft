@@ -28,6 +28,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             }
 
             // Assert
+            Assert.NotEmpty(sut.Id);
             Assert.Equal(5, popped.Count);
             Assert.All(popped, x => Assert.Equal("Foo", x.Component.Id));
         }
@@ -56,6 +57,7 @@ namespace MergeCraft.Core.UnitTests.Merge
             }
 
             // Assert
+            Assert.NotEmpty(sut.Id);
             Assert.Equal(5, count);
         }
     }
