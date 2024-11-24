@@ -49,7 +49,12 @@ public class WorkspaceGridDrawOperation : ICustomDrawOperation
         {
             for (var y = 0; y < height; y++)
             {
-                context.DrawRectangle(brush, pen, _grid[x, y]);
+                context.DrawRectangle(
+                    brush,
+                    pen,
+                    _grid[x, y],
+                    Parent.Model.WorkspaceGridDrawingOptions.RadiusX,
+                    Parent.Model.WorkspaceGridDrawingOptions.RadiusY);
             }
         }
     }
