@@ -12,10 +12,12 @@
 
   <ItemGroup>
     <None Remove="Resources\SVG\Blog-white.svg" />
+    <None Remove="Resources\SVG\scrap.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Resources\SVG\Blog-white.svg" />
+    <EmbeddedResource Include="Resources\SVG\scrap.svg" />
   </ItemGroup>
 
   <ItemGroup>
