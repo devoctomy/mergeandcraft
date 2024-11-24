@@ -37,10 +37,12 @@ public class WorkspaceGridItemDrawOperation : ICustomDrawOperation
         using var canvas = new SKCanvas(skBitmap);
         canvas.Clear(SKColors.Transparent);
         canvas.Scale(scaleX, scaleY);
+
         canvas.DrawPicture(skSvg.Picture, new SKPaint
         {
             IsAntialias = true,
-            FilterQuality = SKFilterQuality.High
+            FilterQuality = SKFilterQuality.High,
+            ImageFilter = SKImageFilter.CreateDropShadow(0, 0, 0, 0, SKColors.Black)
         });
         _bitmap = ConvertSKBitmapToAvaloniaBitmap(skBitmap);
     }
