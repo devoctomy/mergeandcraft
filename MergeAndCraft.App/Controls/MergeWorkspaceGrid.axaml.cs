@@ -28,7 +28,7 @@ public partial class MergeWorkspaceGrid : Control
     public MergeWorkspaceGrid()
     {
         var viewModelFactory = App.ServiceProvider!.GetRequiredService<Func<int, int, MergeWorkspaceGridViewModel>>();
-        Model = viewModelFactory(10, 10);
+        Model = viewModelFactory(7, 9);
         _gridLayoutService = (IGridLayoutService)App.ServiceProvider!.GetService(typeof(IGridLayoutService))!;
     }
 

@@ -21,7 +21,13 @@ public class WorkspaceGridItemDrawOperation : ICustomDrawOperation
         Stream svgStream,
         Rect bounds)
     {
+        if (bounds.Width <= 0 || bounds.Height <= 0)
+        {
+            return;
+        }
+
         _bounds = bounds;
+
 
         var skSvg = new SKSvg();
         skSvg.Load(svgStream);
