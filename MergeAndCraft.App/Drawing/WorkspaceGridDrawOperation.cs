@@ -1,10 +1,8 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Rendering.SceneGraph;
 using MergeAndCraft.App.Controls;
-using MergeAndCraft.App.Services;
 using System;
 
 namespace MergeAndCraft.App.Drawing;

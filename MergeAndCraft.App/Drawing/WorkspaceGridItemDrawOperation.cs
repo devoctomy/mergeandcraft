@@ -6,28 +6,25 @@ using SkiaSharp;
 using Svg.Skia;
 using System.IO;
 using System;
-using MergeAndCraft.App.Services;
-using MergeAndCraft.App.Controls;
 using Avalonia.Media.Immutable;
 
 namespace MergeAndCraft.App.Drawing;
 
 public class WorkspaceGridItemDrawOperation : ICustomDrawOperation
 {
-    private readonly Bitmap _bitmap;
+    private readonly Bitmap? _bitmap;
     private readonly Rect _bounds;
 
     public WorkspaceGridItemDrawOperation(
         Stream svgStream,
         Rect bounds)
     {
+        _bounds = bounds;
+
         if (bounds.Width <= 0 || bounds.Height <= 0)
         {
             return;
         }
-
-        _bounds = bounds;
-
 
         var skSvg = new SKSvg();
         skSvg.Load(svgStream);
@@ -84,6 +81,14 @@ public class WorkspaceGridItemDrawOperation : ICustomDrawOperation
         var pen = new ImmutablePen(new ImmutableSolidColorBrush(Colors.White), 1);
         context.DrawRectangle(brush, pen, Bounds);
 
-        context.DrawBitmap(_bitmap, new Rect(0, 0, _bitmap.PixelSize.Width, _bitmap.PixelSize.Height), Bounds);
+        if(_bitmap == null)
+        {
+            return;
+        }
+
+        context.DrawBitmap(
+            _bitmap,
+            new Rect(0, 0, _bitmap.PixelSize.Width, _bitmap.PixelSize.Height),
+            Bounds);
     }
 }
