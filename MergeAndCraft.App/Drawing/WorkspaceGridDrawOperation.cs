@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Rendering.SceneGraph;
@@ -13,15 +14,16 @@ public class WorkspaceGridDrawOperation : ICustomDrawOperation
     public MergeWorkspaceGrid Parent { get; }
     public Rect Bounds { get; }
 
-    private IGridLayoutService _gridLayoutService;
+    private Rect[,] _grid;
 
     public WorkspaceGridDrawOperation(
         MergeWorkspaceGrid parent,
+        Rect[,] grid,
         Rect bounds)
     {
         Parent = parent;
         Bounds = bounds;
-        _gridLayoutService = (IGridLayoutService)App.ServiceProvider!.GetService(typeof(IGridLayoutService))!;
+        _grid = grid;
     }
 
     public void Dispose()
@@ -39,16 +41,15 @@ public class WorkspaceGridDrawOperation : ICustomDrawOperation
 
     public void Render(ImmediateDrawingContext context)
     {
-        var drawingOptions = Parent.Model.WorkspaceGridDrawingOptions;
-        var grid = _gridLayoutService.Layout(drawingOptions, Bounds);
-
+        var width = _grid.GetLength(0);
+        var height = _grid.GetLength(1);
         var brush = new ImmutableSolidColorBrush(Colors.LightGray);
         var pen = new ImmutablePen(new ImmutableSolidColorBrush(Colors.LightGray), 1);
-        for(var x = 0; x < drawingOptions.Width; x++)
+        for(var x = 0; x < width; x++)
         {
-            for (var y = 0; y < drawingOptions.Height; y++)
+            for (var y = 0; y < height; y++)
             {
-                context.DrawRectangle(brush, pen, grid[x, y]);
+                context.DrawRectangle(brush, pen, _grid[x, y]);
             }
         }
     }
