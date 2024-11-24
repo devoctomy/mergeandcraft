@@ -36,7 +36,7 @@ public partial class MergeWorkspaceGrid : Control
 
         // Testing drawing SVG
         using var svgStream = GetType().Assembly.GetManifestResourceStream("MergeAndCraft.App.Resources.SVG.Blog-white.svg");
-        var test = new WorkspaceGridItemDrawOperation(svgStream, new Rect(100, 100, 64, 64));
+        var test = new WorkspaceGridItemDrawOperation(svgStream!, new Rect(100, 100, 64, 64));
         context.Custom(test);
     }
 }

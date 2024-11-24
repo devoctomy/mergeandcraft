@@ -3,6 +3,7 @@ using Avalonia.Media;
 using Avalonia.Media.Immutable;
 using Avalonia.Rendering.SceneGraph;
 using MergeAndCraft.App.Controls;
+using MergeAndCraft.App.Services;
 using System;
 
 namespace MergeAndCraft.App.Drawing;
@@ -12,12 +13,15 @@ public class WorkspaceGridDrawOperation : ICustomDrawOperation
     public MergeWorkspaceGrid Parent { get; }
     public Rect Bounds { get; }
 
+    private IGridLayoutService _gridLayoutService;
+
     public WorkspaceGridDrawOperation(
         MergeWorkspaceGrid parent,
         Rect bounds)
     {
         Parent = parent;
         Bounds = bounds;
+        _gridLayoutService = (IGridLayoutService)App.ServiceProvider!.GetService(typeof(IGridLayoutService))!;
     }
 
     public void Dispose()
@@ -35,31 +39,16 @@ public class WorkspaceGridDrawOperation : ICustomDrawOperation
 
     public void Render(ImmediateDrawingContext context)
     {
+        var drawingOptions = Parent.Model.WorkspaceGridDrawingOptions;
+        var grid = _gridLayoutService.Layout(drawingOptions, Bounds);
+
         var brush = new ImmutableSolidColorBrush(Colors.LightGray);
         var pen = new ImmutablePen(new ImmutableSolidColorBrush(Colors.LightGray), 1);
-        var innerRect = new Rect(
-            Parent.Model.LeftMargin,
-            Parent.Model.TopMargin,
-            Bounds.Width - (Parent.Model.LeftMargin + Parent.Model.RightMargin),
-            Bounds.Height - (Parent.Model.TopMargin + Parent.Model.BottomMargin));
-
-        var totalSpacingWidth = (Parent.Model.Width - 1) * Parent.Model.HorizontalSpacing;
-        var totalSpacingHeight = (Parent.Model.Height - 1) * Parent.Model.VerticalSpacing;
-        var maxCellWidth = (innerRect.Width - totalSpacingWidth) / Parent.Model.Width;
-        var maxCellHeight = (innerRect.Height - totalSpacingHeight) / Parent.Model.Height;
-        var cellSize = Math.Min(maxCellWidth, maxCellHeight); // Ensure cells are square
-        var totalGridWidth = (cellSize * Parent.Model.Width) + totalSpacingWidth;
-        var totalGridHeight = (cellSize * Parent.Model.Height) + totalSpacingHeight;
-        var offsetX = (innerRect.Width - totalGridWidth) / 2 + innerRect.Left;
-        var offsetY = (innerRect.Height - totalGridHeight) / 2 + innerRect.Top;
-
-        for (var x = 0; x < Parent.Model.Width; x++)
+        for(var x = 0; x < drawingOptions.Width; x++)
         {
-            for (var y = 0; y < Parent.Model.Height; y++)
+            for (var y = 0; y < drawingOptions.Height; y++)
             {
-                var xCoord = offsetX + (x * (cellSize + Parent.Model.HorizontalSpacing));
-                var yCoord = offsetY + (y * (cellSize + Parent.Model.VerticalSpacing));
-                context.DrawRectangle(brush, pen, new Rect(xCoord, yCoord, cellSize, cellSize), Parent.Model.RadiusX, Parent.Model.RadiusY);
+                context.DrawRectangle(brush, pen, grid[x, y]);
             }
         }
     }

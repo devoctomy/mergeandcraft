@@ -1,6 +1,7 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MergeAndCraft.App.Services;
 using MergeAndCraft.App.ViewModels;
 using MergeAndCraft.App.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,14 +39,31 @@ public partial class App : Application
 
     private static void ConfigureServices(IServiceCollection services)
     {
-        // ViewModels
+        // Services
+        services.AddTransient<IGridLayoutService, GridLayoutService>();
+
+        // ViewModels - Don't know if i need to be able to inject half this shit so will re-evaluate as things progress
         services.AddTransient<Func<int, int, MergeWorkspaceGridViewModel>>(sp => (width, height) =>
         {
-            return new MergeWorkspaceGridViewModel(width, height, 8, 8, 8, 8, 8, 8, 4, 4);
+            var workspaceGridDrawingOptions = new WorkspaceGridDrawingOptions
+            (
+                width,
+                height,
+                8,
+                8,
+                8,
+                8,
+                8,
+                8,
+                4,
+                4
+            );
+            return new MergeWorkspaceGridViewModel(workspaceGridDrawingOptions);
         });
 
         services.AddTransient<MergeWorkspaceGridViewModel>();
         services.AddTransient<MainViewModel>();
+        services.AddTransient<WorkspaceGridDrawingOptions>();
 
         // Views
         services.AddTransient<MainWindow>();
