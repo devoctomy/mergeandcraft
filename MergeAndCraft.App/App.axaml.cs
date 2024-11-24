@@ -19,12 +19,11 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        var serviceCollection = new ServiceCollection();
+        ConfigureServices(serviceCollection);
+        ServiceProvider = serviceCollection.BuildServiceProvider();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.DataContext = ServiceProvider.GetRequiredService<MainView>();
             desktop.MainWindow = mainWindow;
@@ -37,7 +36,7 @@ public partial class App : Application
         base.OnFrameworkInitializationCompleted();
     }
 
-    private void ConfigureServices(IServiceCollection services)
+    private static void ConfigureServices(IServiceCollection services)
     {
         // ViewModels
         services.AddTransient<Func<int, int, MergeWorkspaceGridViewModel>>(sp => (width, height) =>
