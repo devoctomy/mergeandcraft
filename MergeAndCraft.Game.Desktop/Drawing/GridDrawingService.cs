@@ -44,40 +44,18 @@ public class GridDrawingService
         return texture;
     }
 
-    public void DrawGrid(SpriteBatch spriteBatch, Rectangle bounds, int margin, int hGridSpaces, int vGridSpaces, int spacing, Color fillColor)
+    public void DrawGrid(SpriteBatch spriteBatch, Rectangle bounds, Rectangle[,] grid, Color fillColor)
     {
         // Calculate drawable area (excluding outer margins)
-        int drawableWidth = bounds.Width - 2 * margin;
-        int drawableHeight = bounds.Height - 2 * margin;
-
-        // Calculate the total space occupied by all grid spaces plus spacing
-        int totalHorizontalSpacing = (hGridSpaces - 1) * spacing;
-        int totalVerticalSpacing = (vGridSpaces - 1) * spacing;
-
-        // Calculate the size of each grid cell
-        int cellWidth = (drawableWidth - totalHorizontalSpacing) / hGridSpaces;
-        int cellHeight = (drawableHeight - totalVerticalSpacing) / vGridSpaces;
-
-        // Use the smaller of the two dimensions to ensure square cells
-        int cellSize = Math.Min(cellWidth, cellHeight);
-
-        // Calculate the total grid dimensions
-        int gridWidth = cellSize * hGridSpaces + totalHorizontalSpacing;
-        int gridHeight = cellSize * vGridSpaces + totalVerticalSpacing;
-
-        // Calculate offsets to center the grid within the bounds
-        int offsetX = bounds.X + margin + (drawableWidth - gridWidth) / 2;
-        int offsetY = bounds.Y + margin + (drawableHeight - gridHeight) / 2;
+        var hGridSpaces = grid.GetLength(0);
+        var vGridSpaces = grid.GetLength(1);
 
         // Draw each grid space
         for (int row = 0; row < vGridSpaces; row++)
         {
             for (int col = 0; col < hGridSpaces; col++)
             {
-                int x = offsetX + col * (cellSize + spacing);
-                int y = offsetY + row * (cellSize + spacing);
-
-                DrawObroundedRectangle(spriteBatch, new Rectangle(x, y, cellSize, cellSize), fillColor);
+                DrawObroundedRectangle(spriteBatch, grid[col, row], fillColor);
             }
         }
     }

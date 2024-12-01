@@ -1,4 +1,6 @@
-﻿using MergeAndCraft.Game.Desktop.Drawing;
+﻿using MergeAndCraft.App.ViewModels;
+using MergeAndCraft.Game.Desktop.Drawing;
+using MergeAndCraft.Game.Desktop.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -10,10 +12,13 @@ public class Game : Microsoft.Xna.Framework.Game
     private GridDrawingService? _gridDrawingService;
     private GraphicsDeviceManager? _graphics;
     private SpriteBatch? _spriteBatch;
+    private IGridLayoutService _gridLayoutService;
+    private Rectangle[,] _grid;
 
     public Game()
     {
-        _graphics = new GraphicsDeviceManager(this);        
+        _graphics = new GraphicsDeviceManager(this);
+        _gridLayoutService = new GridLayoutService();
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -22,6 +27,17 @@ public class Game : Microsoft.Xna.Framework.Game
     protected override void Initialize()
     {
         _gridDrawingService = new GridDrawingService(_graphics!.GraphicsDevice);
+        _grid = _gridLayoutService.Layout(new WorkspaceGridDrawingOptions
+        {
+            Width = 5,
+            Height = 4,
+            LeftMargin = 20,
+            TopMargin = 20,
+            RightMargin = 20,
+            BottomMargin = 20,
+            HorizontalSpacing = 4,
+            VerticalSpacing = 4
+        }, new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height));
 
         base.Initialize();
     }
@@ -49,12 +65,8 @@ public class Game : Microsoft.Xna.Framework.Game
 
         _spriteBatch!.Begin();
 
-        Rectangle bounds = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
-        int margin = 20;
-        int hGridSpaces = 5;
-        int vGridSpaces = 4;
-
-        _gridDrawingService!.DrawGrid(_spriteBatch, bounds, margin, hGridSpaces, vGridSpaces, 4,  Color.Black);
+        Rectangle bounds = new(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+        _gridDrawingService!.DrawGrid(_spriteBatch, bounds, _grid,  Color.Black);
 
         _spriteBatch.End();
 
