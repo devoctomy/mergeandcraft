@@ -4,6 +4,7 @@ using MergeAndCraft.Game.Desktop.Services;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace MergeAndCraft.Game.Desktop;
 
@@ -15,10 +16,10 @@ public class Game : Microsoft.Xna.Framework.Game
     private IGridLayoutService _gridLayoutService;
     private Rectangle[,] _grid;
 
-    public Game()
+    public Game(IServiceProvider serviceProvider)
     {
         _graphics = new GraphicsDeviceManager(this);
-        _gridLayoutService = new GridLayoutService();
+        _gridLayoutService = (IGridLayoutService)serviceProvider.GetService(typeof(IGridLayoutService))!;
 
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
