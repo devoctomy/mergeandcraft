@@ -7,9 +7,9 @@ namespace MergeAndCraft.Game.Desktop;
 
 public class Game : Microsoft.Xna.Framework.Game
 {
-    private GridDrawingService _gridDrawingService;
-    private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
+    private GridDrawingService? _gridDrawingService;
+    private GraphicsDeviceManager? _graphics;
+    private SpriteBatch? _spriteBatch;
 
     public Game()
     {
@@ -21,7 +21,7 @@ public class Game : Microsoft.Xna.Framework.Game
 
     protected override void Initialize()
     {
-        _gridDrawingService = new GridDrawingService(_graphics.GraphicsDevice);
+        _gridDrawingService = new GridDrawingService(_graphics!.GraphicsDevice);
 
         base.Initialize();
     }
@@ -47,14 +47,14 @@ public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _spriteBatch.Begin();
+        _spriteBatch!.Begin();
 
         Rectangle bounds = new Rectangle(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
         int margin = 20;
         int hGridSpaces = 5;
         int vGridSpaces = 4;
 
-        _gridDrawingService.DrawGrid(_spriteBatch, bounds, margin, hGridSpaces, vGridSpaces, 4,  Color.Black);
+        _gridDrawingService!.DrawGrid(_spriteBatch, bounds, margin, hGridSpaces, vGridSpaces, 4,  Color.Black);
 
         _spriteBatch.End();
 
